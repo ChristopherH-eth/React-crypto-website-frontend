@@ -1,0 +1,118 @@
+/**
+ * @file styles.css
+ * @author 0xChristopher
+ * @brief This file contains the css for the Crypto Website.
+ */
+
+*
+{
+    box-sizing: border-box;
+}
+
+html, body
+{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    font-family: "Inter", sans-serif;
+    color: #DEEBE8;
+}
+
+/**
+ * Header
+ */
+header
+{
+    margin: 0;
+    padding: 30px, 25px;
+    min-height: 90px;
+    background-color: #21222A;
+    color: #61DAFB;
+    display: flex;
+}
+
+.header--text
+{
+    padding: 10px;
+}
+
+/**
+ * Main
+ */
+main
+{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 10px;
+    background-color: #282D35;
+}
+
+.cryptocurrencies--column-headers
+{
+    min-height: 45px;
+}
+
+/**
+ * Cryptos
+ */
+.cryptocurrencies--column-headers, .cryptos
+{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-top: 1px solid #DEEBE8;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.cryptos
+{
+    min-height: 90px;
+}
+
+.cryptos:hover
+{
+    background-color: #21222A;
+}
+
+.cryptocurrencies--column-headers--rank, .cryptocurrencies--column-headers--name,
+    .cryptocurrencies--column-headers--circ-supply, .cryptos--rank, .cryptos--name, .cryptos--circ-supply
+{
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.cryptocurrencies--column-headers--rank, .cryptos--rank
+{
+    width: 20px;
+    text-align: center;
+}
+
+.cryptocurrencies--column-headers--name, .cryptos--name
+{
+    width: 200px;
+    text-align: left;
+}
+
+.cryptocurrencies--column-headers--circ-supply, .cryptos--circ-supply
+{
+    width: 150px;
+    text-align: right;
+}
+
+/**
+ * Footer
+ */
+footer
+{
+    margin: 0;
+    padding: 30px, 25px;
+    min-height: 90px;
+    background-color: #21222A;
+    color: #61DAFB;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
