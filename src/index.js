@@ -5,7 +5,7 @@ import App from "./App"
 /**
  * @file index.js
  * @author 0xChristopher
- * @brief 
+ * @brief This file is simply responsible for rendering the application.
  */
 
 const root = ReactDOM.createRoot(document.getElementById("root"))

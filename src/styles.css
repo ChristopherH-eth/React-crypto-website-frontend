@@ -66,6 +66,11 @@ main
     font-size: 14px;
 }
 
+.cryptocurrencies--column-headers
+{
+    font-weight: bold;
+}
+
 .cryptos
 {
     min-height: 90px;
@@ -76,28 +81,57 @@ main
     background-color: #21222A;
 }
 
-.cryptocurrencies--column-headers--rank, .cryptocurrencies--column-headers--name,
-    .cryptocurrencies--column-headers--circ-supply, .cryptos--rank, .cryptos--name, .cryptos--circ-supply
-{
-    margin-right: 10px;
-    margin-left: 10px;
-}
-
 .cryptocurrencies--column-headers--rank, .cryptos--rank
 {
-    width: 20px;
+    width: 7.5%;
     text-align: center;
 }
 
 .cryptocurrencies--column-headers--name, .cryptos--name
 {
-    width: 200px;
+    width: 15%;
     text-align: left;
+    font-weight: bold;
+}
+
+.cryptocurrencies--column-headers--price, .cryptos--price
+{
+    width: 7.5%;
+    text-align: left;
+}
+
+.cryptocurrencies--column-headers--change, .cryptos--change
+{
+    width: 7.5%;
+    text-align: right;
+    font-weight: bold;
+}
+
+.green
+{
+    color: green;
+}
+
+.red
+{
+    color: red;
+}
+
+.cryptocurrencies--column-headers--market-cap, .cryptos--market-cap
+{
+    width: 15%;
+    text-align: right;
+}
+
+.cryptocurrencies--column-headers--volume, .cryptos--volume
+{
+    width: 12.5%;
+    text-align: right;
 }
 
 .cryptocurrencies--column-headers--circ-supply, .cryptos--circ-supply
 {
-    width: 150px;
+    width: 15%;
     text-align: right;
 }
 
