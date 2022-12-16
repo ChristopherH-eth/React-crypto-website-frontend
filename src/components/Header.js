@@ -1,9 +1,13 @@
 /**
  * @file Header.js
  * @author 0xChristopher
- * @brief 
+ * @brief This file builds and returns the header component.
  */
 
+/**
+ * @brief The Header() function builds the page header.
+ * @return Returns the header to be added to the page
+ */
 function Header()
 {
     return (

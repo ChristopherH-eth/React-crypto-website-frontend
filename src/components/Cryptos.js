@@ -48,8 +48,16 @@ function Cryptos(props)
                     {props.quote.USD.percent_change_1h.toFixed(2)}%
                 </div>
             </div>
-            <div className="cryptos--change" id="24h">{props.quote.USD.percent_change_24h.toFixed(2)}%</div>
-            <div className="cryptos--change" id="7d">{props.quote.USD.percent_change_7d.toFixed(2)}%</div>
+            <div className="cryptos--change">
+                <div className={props.quote.USD.percent_change_24h >= 0 ? "green" : "red"}>
+                    {props.quote.USD.percent_change_24h.toFixed(2)}%
+                </div>
+            </div>
+            <div className="cryptos--change">
+                <div className={props.quote.USD.percent_change_7d >= 0 ? "green" : "red"}>
+                    {props.quote.USD.percent_change_7d.toFixed(2)}%
+                </div>
+            </div>
             <div className="cryptos--market-cap">${`${addCommas(props.quote.USD.market_cap.toFixed())}`}</div>
             <div className="cryptos--volume">${`${addCommas(props.quote.USD.volume_24h.toFixed())}`}</div>
             <div className="cryptos--circ-supply">{`${addCommas(props.circulating_supply.toFixed())} `}

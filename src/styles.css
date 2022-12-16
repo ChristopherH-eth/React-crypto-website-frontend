@@ -19,6 +19,49 @@ html, body
 }
 
 /**
+ * Buttons
+ */
+
+button
+{
+    border: none;
+    padding: 5px;
+    background-color: #58626f;
+    color: #DEEBE8;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+button:hover
+{
+    cursor: pointer;
+}
+
+.dropbutton--container
+{
+    position: relative;
+    display: inline-block;
+}
+
+.dropbutton--content
+{
+    display: none;
+    position: absolute;
+    background-color: #21222A;
+    border-radius: 5px;
+    box-shadow: 0px 3px 7.5px #323942;
+    padding: 10px;
+    min-width: 90px;
+    margin-top: 5px;
+    right: 0;
+}
+
+.show
+{
+    display: block;
+}
+
+/**
  * Header
  */
 header
@@ -44,8 +87,7 @@ main
     display: flex;
     flex-direction: column;
     margin: 0;
-    padding: 10px;
-    background-color: #282D35;
+    background-color: #21222A;
 }
 
 .cryptocurrencies--column-headers
@@ -56,14 +98,30 @@ main
 /**
  * Cryptos
  */
+.cryptocurrencies--options
+{
+    display: flex;
+    flex-direction: column;
+    background-image: linear-gradient(180deg, #282D35 0%, #21222A 100%);
+    min-height: 90px;
+    padding: 10px;
+}
+
+.cryptocurrencies--options--content
+{
+    text-align: right;
+}
+
 .cryptocurrencies--column-headers, .cryptos
 {
     display: flex;
     align-items: center;
-    width: 100%;
-    border-top: 1px solid #DEEBE8;
+    max-width: 100%;
+    border-top: 1px solid #323942;
     padding: 10px;
     font-size: 14px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .cryptocurrencies--column-headers
@@ -78,7 +136,7 @@ main
 
 .cryptos:hover
 {
-    background-color: #21222A;
+    background-color: #282D35;
 }
 
 .cryptocurrencies--column-headers--rank, .cryptos--rank
