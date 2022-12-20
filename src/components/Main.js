@@ -1,5 +1,6 @@
 import React from "react"
 import Cryptos from "./Cryptos"
+import Pagination from "./Pagination"
 
 /**
  * @file Main.js
@@ -40,10 +41,17 @@ window.onclick = function(event)
  */
 function Main()
 {
-    const [cryptoData, setCryptoData] = React.useState([])
+    const [cryptoData, setCryptoData] = React.useState([])          // Most recent crypto data fetched
+    const [displayLimit, setDisplayLimit] = React.useState(100)     // Current page limit
+    const [pageNumber, setPageNumber] = React.useState(1)           // Current page number
 
-    const url = "http://localhost:8000/api/v1/crypto/all"
+    const page20 = 20                                               // Page limit of 20 items
+    const page50 = 50                                               // Page limit of 50 items
+    const page100 = 100                                             // Page limit of 100 items
 
+    const pageUrl = `http://localhost:8000/api/v1/crypto/pages/${pageNumber}/${displayLimit}`
+
+    // Map fetched cryptocurrency data
     const cryptocurrencies = cryptoData.map((crypto) => {
         return <Cryptos 
             key={crypto.id}
@@ -52,27 +60,45 @@ function Main()
         />
     })
 
-    // Render initial values
-    React.useEffect(() => {
-        fetch(url)
+    const pages = <Pagination 
+            totalCount={9000}
+            pageSize={displayLimit}
+            pageNumber={pageNumber}
+            onPageChange={page => setPageNumber(page)}
+        />
+
+    function changeDisplayLimit20()
+    {
+        setDisplayLimit(page20)
+    }
+
+    function changeDisplayLimit50()
+    {
+        setDisplayLimit(page50)
+    }
+
+    function changeDisplayLimit100()
+    {
+        setDisplayLimit(page100)
+    }
+
+    // Render initial state values
+    React.useEffect(() => {  
+        fetch(pageUrl)
             .then((res) => res.json())
             .then((data) => setCryptoData(data))
-
-        console.log("Effect ran")
-    }, [])
+    }, [pageUrl])
 
     // Check for updates every 30 seconds
     React.useEffect(() => {
         const update = setInterval(() => {
-            fetch(url)
+            fetch(pageUrl)
                 .then((res) => res.json())
                 .then((data) => setCryptoData(data))
-
-            console.log("Effect ran")
         }, 30000)
 
         return () => clearInterval(update)
-    }, [cryptoData.props])
+    }, [cryptoData.props, pageUrl])
 
     return (
         <main>
@@ -85,9 +111,18 @@ function Main()
                                 id="rowbtn" 
                                 onClick={showDropdown}>100 Rows</button>
                             <div className="dropbutton--content" id="rowbtn--content">
-                                <p>20</p>
-                                <p>50</p>
-                                <p>100</p>
+                                <div 
+                                    className="dropbutton--content--row" 
+                                    onClick={changeDisplayLimit20}
+                                >20</div>
+                                <div 
+                                    className="dropbutton--content--row"
+                                    onClick={changeDisplayLimit50}
+                                >50</div>
+                                <div 
+                                    className="dropbutton--content--row"
+                                    onClick={changeDisplayLimit100}
+                                >100</div>
                             </div>
                         </div>
                     </div>
@@ -104,6 +139,10 @@ function Main()
                     <div className="cryptocurrencies--column-headers--circ-supply">Circulating Supply</div>
                 </section>
                 {cryptocurrencies}
+                {console.log(displayLimit, pageNumber)}
+                <section className="cryptocurrencies--page-selector">
+                    {pages}
+                </section>
             </section>
         </main>
     )
