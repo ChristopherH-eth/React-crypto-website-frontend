@@ -33,7 +33,7 @@ function fixDecimals(x)
 
 /**
  * @brief The Cryptos() function creates cryptocurrency modules to be displayed in the Main module.
- * @param props The propertise passed into each cryptocurrency module
+ * @param props The properties passed into each cryptocurrency module
  * @return Returns the constructed module(s)
  */
 function Cryptos(props)

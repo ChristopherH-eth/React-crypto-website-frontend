@@ -44,12 +44,14 @@ function Main()
     const [cryptoData, setCryptoData] = React.useState([])          // Most recent crypto data fetched
     const [displayLimit, setDisplayLimit] = React.useState(100)     // Current page limit
     const [pageNumber, setPageNumber] = React.useState(1)           // Current page number
+    const [cryptoCount, setCryptoCount] = React.useState(1)         // Total cryptocurrencies
 
     const page20 = 20                                               // Page limit of 20 items
     const page50 = 50                                               // Page limit of 50 items
     const page100 = 100                                             // Page limit of 100 items
 
     const pageUrl = `http://localhost:8000/api/v1/crypto/pages/${pageNumber}/${displayLimit}`
+    const countUrl= "http://localhost:8000/api/v1/crypto/all"
 
     // Map fetched cryptocurrency data
     const cryptocurrencies = cryptoData.map((crypto) => {
@@ -60,33 +62,53 @@ function Main()
         />
     })
 
+    // Create Pagination based on our cryptocurrency data
     const pages = <Pagination 
-            totalCount={9000}
-            pageSize={displayLimit}
-            pageNumber={pageNumber}
-            onPageChange={page => setPageNumber(page)}
-        />
+        totalCount={cryptoCount}
+        pageSize={displayLimit}
+        pageNumber={pageNumber}
+        onPageChange={page => setPageNumber(page)}
+    />
 
+    /**
+     * @brief The changeDisplayLimit20() function sets the number of cryptocurrencies to be displayed
+     *      on each page to 20, and resets the page number to 1 to avoid a blank page populating.
+     */
     function changeDisplayLimit20()
     {
         setDisplayLimit(page20)
+        setPageNumber(1)
     }
 
+    /**
+     * @brief The changeDisplayLimit50() function sets the number of cryptocurrencies to be displayed
+     *      on each page to 50, and resets the page number to 1 to avoid a blank page populating.
+     */
     function changeDisplayLimit50()
     {
         setDisplayLimit(page50)
+        setPageNumber(1)
     }
 
+    /**
+     * @brief The changeDisplayLimit100() function sets the number of cryptocurrencies to be displayed
+     *      on each page to 100, and resets the page number to 1 to avoid a blank page populating.
+     */
     function changeDisplayLimit100()
     {
         setDisplayLimit(page100)
+        setPageNumber(1)
     }
 
-    // Render initial state values
+    // Render initial crypto values and when page is changed
     React.useEffect(() => {  
         fetch(pageUrl)
             .then((res) => res.json())
             .then((data) => setCryptoData(data))
+
+        fetch(countUrl)
+            .then((res) => res.json())
+            .then((data) => setCryptoCount(data))
     }, [pageUrl])
 
     // Check for updates every 30 seconds
@@ -95,16 +117,21 @@ function Main()
             fetch(pageUrl)
                 .then((res) => res.json())
                 .then((data) => setCryptoData(data))
+            
+            fetch(countUrl)
+                .then((res) => res.json())
+                .then((data) => setCryptoCount(data))
         }, 30000)
 
         return () => clearInterval(update)
-    }, [cryptoData.props, pageUrl])
+    }, [pageUrl])
 
     return (
         <main>
             <section className="cryptocurrencies">
+                {/* Filter & Display Selectors */}
                 <section className="cryptocurrencies--options">
-                    <h1>Top 100 Cryptocurrencies</h1>
+                    <h1>Top Cryptocurrencies</h1>
                     <div className="cryptocurrencies--options--content">
                         <div className="dropbutton--container">
                             <button className="dropbutton" 
@@ -127,6 +154,7 @@ function Main()
                         </div>
                     </div>
                 </section>
+                {/* Cryptocurrency Column Headers */}
                 <section className="cryptocurrencies--column-headers">
                     <div className="cryptocurrencies--column-headers--rank">#</div>
                     <div className="cryptocurrencies--column-headers--name">Name</div>
@@ -138,8 +166,9 @@ function Main()
                     <div className="cryptocurrencies--column-headers--volume">Volume (24h)</div>
                     <div className="cryptocurrencies--column-headers--circ-supply">Circulating Supply</div>
                 </section>
+                {/* Cryptocurrency Object Array */}
                 {cryptocurrencies}
-                {console.log(displayLimit, pageNumber)}
+                {/* Paginator */}
                 <section className="cryptocurrencies--page-selector">
                     {pages}
                 </section>

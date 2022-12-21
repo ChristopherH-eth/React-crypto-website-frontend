@@ -215,6 +215,32 @@ main
 }
 
 /**
+ * Pagination
+ */
+.pagination-container
+{
+    list-style-type: none;
+    display: flex;
+}
+
+.pagination-item, .pagination-item--dots
+{
+    padding: 6px;
+    border-radius: 5px;
+}
+
+.pagination-item:hover
+{
+    background-color: #58626f;
+    cursor: pointer;
+}
+
+.selected
+{
+    background-color: #58626f;
+}
+
+/**
  * Footer
  */
 footer
