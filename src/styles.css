@@ -164,6 +164,19 @@ main
     font-weight: bold;
 }
 
+.cryptos--name
+{
+    display: flex;
+    justify-content: left;
+}
+
+.cryptos--name--logo
+{
+    max-width: 20px;
+    max-height: 20px;
+    margin-right: 5px;
+}
+
 .cryptocurrencies--column-headers--price, .cryptos--price
 {
     width: 7.5%;
