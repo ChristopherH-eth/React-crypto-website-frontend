@@ -45,29 +45,21 @@ function Main()
     const [displayLimit, setDisplayLimit] = React.useState(100)     // Current page limit
     const [pageNumber, setPageNumber] = React.useState(1)           // Current page number
     const [cryptoCount, setCryptoCount] = React.useState(1)         // Total cryptocurrencies
-    const [metaStr, setMetaStr] = React.useState("")                // String of metadata ids
-    const [metadata, setMetadata] = React.useState([])              // Array of metadata objects
 
     const page20 = 20                                               // Page limit of 20 items
     const page50 = 50                                               // Page limit of 50 items
     const page100 = 100                                             // Page limit of 100 items
+    const pageLimit = Math.floor(cryptoCount / displayLimit)        // Limit pagination
 
     const pageUrl = `http://localhost:8000/api/v1/crypto/pages/${pageNumber}/${displayLimit}`
-    const metaUrl = `http://localhost:8000/api/v1/crypto/meta/?cryptos=${metaStr}`
+    // const metaUrl = `http://localhost:8000/api/v1/crypto/meta/?cryptos=${metaStr}`
     const countUrl= "http://localhost:8000/api/v1/crypto/all"
 
     // Map fetched cryptocurrency data
     const cryptocurrencies = cryptoData.map((crypto) => {
-        const meta = metadata.find(meta => meta.id === crypto.id)
-        let metaLogo = ""
-        
-        if (meta)
-            metaLogo = meta.logo
-
         return <Cryptos 
             key={crypto.id}
             index={crypto.cmc_rank}
-            image={metaLogo}
             {...crypto}
         />
     })
@@ -77,31 +69,9 @@ function Main()
         totalCount={cryptoCount}
         pageSize={displayLimit}
         pageNumber={pageNumber}
+        maxPages={pageLimit}
         onPageChange={page => setPageNumber(page)}
     />
-
-    function getMeta()
-    {
-        let metaIds = ""
-
-        // Get ids for cryptocurrency metadata
-        for (var i = 0; i < cryptoData.length; i++)
-        {
-            if (metaIds === "")
-            {
-                let id = cryptoData[i].id.toString()
-                metaIds = metaIds.concat(id)
-            }
-            else
-            {
-                let id = cryptoData[i].id.toString()
-                metaIds = metaIds.concat(",", id)
-            }
-        }
-
-        // Set string of metadata ids
-        setMetaStr(metaIds)
-    }
 
     /**
      * @brief The changeDisplayLimit20() function sets the number of cryptocurrencies to be displayed
@@ -160,23 +130,6 @@ function Main()
 
         return () => clearInterval(update)
     }, [pageUrl])
-
-    // Update the metadata id string
-    React.useEffect(() => {
-        if (cryptoData)
-            getMeta()
-    }, [cryptoData])
-
-    // Update the metadata object array
-    React.useEffect(() => {
-        if (metaStr !== "")
-        {
-            fetch(metaUrl)
-                .then((res) => res.json())
-                .then((res) => setMetadata(res))
-                .catch(console.error)
-        }
-    }, [metaStr, metaUrl])
 
     console.log("Re-rendering")
 

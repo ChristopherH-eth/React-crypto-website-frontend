@@ -42,7 +42,7 @@ function Cryptos(props)
         <section className="cryptos">
             <div className="cryptos--rank">{props.index}</div>
             <div className="cryptos--name">
-                <img className="cryptos--name--logo" src={`${props.image}`} alt="logo" /> 
+                {props.logo ? <img className="cryptos--name--logo" src={`${props.logo}`} alt="logo" /> : ""}
                 {props.name} {props.symbol}
             </div>
             <div className="cryptos--price">${fixDecimals(props.quote.USD.price)}</div>

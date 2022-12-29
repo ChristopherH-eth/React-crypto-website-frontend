@@ -28,10 +28,11 @@ const usePagination = ({
     totalCount,
     pageSize,
     siblingCount,
-    pageNumber
+    pageNumber,
+    maxPages
 }) => {
     const paginationRange = React.useMemo(() => {
-        const totalPageCount = Math.ceil(totalCount / pageSize)
+        const totalPageCount = Math.min(Math.ceil(totalCount / pageSize), maxPages)
         const totalPageNumbers = siblingCount + 5
         const leftSiblingIndex = Math.max(pageNumber - siblingCount, 1)
         const rightSiblingIndex = Math.min(pageNumber + siblingCount, totalPageCount)
@@ -73,7 +74,7 @@ const usePagination = ({
 
             return [firstPageIndex, DOTS, ...midRange, DOTS, lastPageIndex]
         }
-    }, [totalCount, pageSize, pageNumber, siblingCount])
+    }, [totalCount, pageSize, pageNumber, siblingCount, maxPages])
 
     return paginationRange
 }

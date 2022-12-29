@@ -19,7 +19,8 @@ function Pagination(props)
         totalCount,
         siblingCount = 2,
         pageNumber,
-        pageSize
+        pageSize,
+        maxPages
     } = props
 
     // Pass variables into usePagination hook
@@ -27,7 +28,8 @@ function Pagination(props)
         totalCount,
         pageSize,
         siblingCount,
-        pageNumber
+        pageNumber,
+        maxPages
     })
 
     // Check if pagination is necessary; if not, return null
@@ -50,8 +52,8 @@ function Pagination(props)
         onPageChange(pageNumber - 1)
     }
 
-    const DOTS = "..."                                                      // Placeholder for ellipsis
-    let lastPage = paginationRange[paginationRange.length - 1]              // Last page based on range of pagination
+    const DOTS = "..."                                                                  // Placeholder for ellipsis
+    let lastPage = Math.min(paginationRange[paginationRange.length - 1], maxPages)      // Last page based on range of pagination
 
     // Create the pagination bar
     const paginationBar = paginationRange.map((pageNumber, index) => {
