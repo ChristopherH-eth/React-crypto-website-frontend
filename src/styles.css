@@ -25,16 +25,22 @@ html, body
 button
 {
     border: none;
-    padding: 5px;
+    padding: 0.3125rem;
     background-color: #58626f;
     color: #DEEBE8;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
+    min-width: 4.375rem;
 }
 
 button:hover
 {
     cursor: pointer;
+}
+
+.header--info-bar--button
+{
+    margin-left: 1rem;
 }
 
 .dropbutton--container
@@ -48,18 +54,18 @@ button:hover
     display: none;
     position: absolute;
     background-color: #21222A;
-    border-radius: 5px;
-    box-shadow: 0px 3px 7.5px #323942;
-    padding: 10px;
-    min-width: 70px;
-    margin-top: 5px;
+    border-radius: 0.3125rem;
+    box-shadow: 0rem 0.1875rem 0.46875rem #323942;
+    padding: 0.625rem;
+    min-width: 4.375rem;
+    margin-top: 0.3125rem;
 }
 
 .dropbutton--content--row
 {
-    padding: 10px;
+    padding: 0.625rem;
     text-align: left;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
 }
 
 .dropbutton--content--row:hover
@@ -78,17 +84,84 @@ button:hover
  */
 header
 {
-    margin: 0;
-    padding: 30px, 25px;
-    min-height: 90px;
+    margin: 0rem;
+    padding: 1.875rem, 1.5625rem;
+    min-height: 5.625rem;
     background-color: #21222A;
+    border-bottom: 0.0625rem solid #323942;
     color: #61DAFB;
     display: flex;
+    flex-direction: column;
 }
 
-.header--text
+.header--navigation
 {
-    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header--navigation--text
+{
+    padding: 0.625rem;
+    margin-left: 0rem;
+    margin-right: 2.5rem;
+}
+
+.header--navigation--container
+{
+    display: flex;
+    margin-left: 0rem;
+    margin-right: auto;
+}
+
+.header--navigation--item
+{
+    margin-right: 1.25rem;
+    color: #DEEBE8;
+    cursor: pointer;
+}
+
+.header--navigation--search
+{
+    padding: 0.625rem;
+    margin-right: 0.625rem;
+    height: 1.875rem;
+    width: 15.625rem;
+    border-radius: 0.3125rem;
+    border: none;
+}
+
+.header--info-bar
+{
+    padding: 0.625rem;
+    min-height: 2.8125rem;
+    color: #DEEBE8;
+    font-size: 0.75rem;
+    border-bottom: 0.0625rem solid #323942;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header--info-bar--stats-container
+{
+    display: flex;
+    margin-left: 0rem;
+    margin-right: auto;
+}
+
+.header--info-bar--stats
+{
+    display: flex;
+    text-align: left;
+    margin-right: 1rem;
+}
+
+.header--info-bar--stats--value
+{
+    color: #61DAFB;
+    text-decoration: none;
 }
 
 /**
@@ -98,13 +171,13 @@ main
 {
     display: flex;
     flex-direction: column;
-    margin: 0;
+    margin: 0rem;
     background-color: #21222A;
 }
 
 .cryptocurrencies--column-headers
 {
-    min-height: 45px;
+    min-height: 2.8125rem;
 }
 
 /**
@@ -115,8 +188,18 @@ main
     display: flex;
     flex-direction: column;
     background-image: linear-gradient(180deg, #282D35 0%, #21222A 100%);
-    min-height: 90px;
-    padding: 10px;
+    min-height: 5.625rem;
+    padding: 0.625rem;
+}
+
+.cryptocurrencies--options--text
+{
+    margin-bottom: 0.625rem;
+}
+
+.cryptocurrencies--options--caption
+{
+    font-size: 0.875rem;
 }
 
 .cryptocurrencies--options--content
@@ -129,11 +212,11 @@ main
     display: flex;
     align-items: center;
     max-width: 100%;
-    border-top: 1px solid #323942;
-    padding: 10px;
-    font-size: 14px;
-    margin-left: 10px;
-    margin-right: 10px;
+    border-top: 0.0625rem solid #323942;
+    padding: 0.625rem;
+    font-size: 0.875rem;
+    margin-left: 0.625rem;
+    margin-right: 0.625rem;
 }
 
 .cryptocurrencies--column-headers
@@ -143,7 +226,7 @@ main
 
 .cryptos
 {
-    min-height: 90px;
+    min-height: 5.625rem;
 }
 
 .cryptos:hover
@@ -172,9 +255,9 @@ main
 
 .cryptos--name--logo
 {
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 0.3125rem;
 }
 
 .cryptocurrencies--column-headers--price, .cryptos--price
@@ -224,7 +307,7 @@ main
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 45px;
+    min-height: 2.8125rem;
 }
 
 /**
@@ -238,8 +321,8 @@ main
 
 .pagination-item, .pagination-item--dots
 {
-    padding: 6px;
-    border-radius: 5px;
+    padding: 0.375rem;
+    border-radius: 0.3125rem;
 }
 
 .pagination-item:hover
@@ -259,8 +342,8 @@ main
 footer
 {
     margin: 0;
-    padding: 30px, 25px;
-    min-height: 90px;
+    padding: 1.875rem, 1.5625rem;
+    min-height: 5.625rem;
     background-color: #21222A;
     color: #61DAFB;
     display: flex;

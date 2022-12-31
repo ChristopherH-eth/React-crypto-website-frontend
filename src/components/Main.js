@@ -39,21 +39,22 @@ window.onclick = function(event)
  *      etc.) the page will re-render to reflect those changes.
  * @return Returns the constructed Main module
  */
-function Main()
+function Main(props)
 {
-    const [cryptoData, setCryptoData] = React.useState([])          // Most recent crypto data fetched
-    const [displayLimit, setDisplayLimit] = React.useState(100)     // Current page limit
-    const [pageNumber, setPageNumber] = React.useState(1)           // Current page number
-    const [cryptoCount, setCryptoCount] = React.useState(1)         // Total cryptocurrencies
+    // Set variables to prop values
+    const {
+        cryptoData,
+        displayLimit,
+        pageNumber,
+        cryptoCount,
+        onDisplayLimitChange,
+        onPageChange
+    } = props
 
     const page20 = 20                                               // Page limit of 20 items
     const page50 = 50                                               // Page limit of 50 items
     const page100 = 100                                             // Page limit of 100 items
     const pageLimit = Math.floor(cryptoCount / displayLimit)        // Limit pagination
-
-    const pageUrl = `http://localhost:8000/api/v1/crypto/pages/${pageNumber}/${displayLimit}`
-    // const metaUrl = `http://localhost:8000/api/v1/crypto/meta/?cryptos=${metaStr}`
-    const countUrl= "http://localhost:8000/api/v1/crypto/all"
 
     // Map fetched cryptocurrency data
     const cryptocurrencies = cryptoData.map((crypto) => {
@@ -70,7 +71,7 @@ function Main()
         pageSize={displayLimit}
         pageNumber={pageNumber}
         maxPages={pageLimit}
-        onPageChange={page => setPageNumber(page)}
+        onPageChange={onPageChange}
     />
 
     /**
@@ -79,8 +80,8 @@ function Main()
      */
     function changeDisplayLimit20()
     {
-        setDisplayLimit(page20)
-        setPageNumber(1)
+        onDisplayLimitChange(page20)
+        onPageChange(1)
     }
 
     /**
@@ -89,8 +90,8 @@ function Main()
      */
     function changeDisplayLimit50()
     {
-        setDisplayLimit(page50)
-        setPageNumber(1)
+        onDisplayLimitChange(page50)
+        onPageChange(1)
     }
 
     /**
@@ -99,46 +100,21 @@ function Main()
      */
     function changeDisplayLimit100()
     {
-        setDisplayLimit(page100)
-        setPageNumber(1)
+        onDisplayLimitChange(page100)
+        onPageChange(1)
     }
-
-    // Render initial crypto values and when page is changed
-    React.useEffect(() => {
-        fetch(pageUrl)
-            .then((res) => res.json())
-            .then((res) => setCryptoData(res))
-            .catch(console.error)
-        
-        fetch(countUrl)
-            .then((res) => res.json())
-            .then((res) => setCryptoCount(res))
-            .catch(console.error)
-
-        // Check for updates every 30 seconds
-        const update = setInterval(() => {
-            fetch(pageUrl)
-                .then((res) => res.json())
-                .then((res) => setCryptoData(res))
-                .catch(console.error)
-            
-            fetch(countUrl)
-                .then((res) => res.json())
-                .then((res) => setCryptoCount(res))
-                .catch(console.error)
-        }, 30000)
-
-        return () => clearInterval(update)
-    }, [pageUrl])
-
-    console.log("Re-rendering")
 
     return (
         <main>
             <section className="cryptocurrencies">
                 {/* Filter & Display Selectors */}
                 <section className="cryptocurrencies--options">
-                    <h1>Top Cryptocurrencies</h1>
+                    <h1 className="cryptocurrencies--options--text">
+                        Top Cryptocurrencies By Market Cap
+                    </h1>
+                    <div className="cryptocurrencies--options--caption">
+                        Placeholder Text
+                    </div>
                     <div className="cryptocurrencies--options--content">
                         <div className="dropbutton--container">
                             <button className="dropbutton" 
@@ -163,15 +139,33 @@ function Main()
                 </section>
                 {/* Cryptocurrency Column Headers */}
                 <section className="cryptocurrencies--column-headers">
-                    <div className="cryptocurrencies--column-headers--rank">#</div>
-                    <div className="cryptocurrencies--column-headers--name">Name</div>
-                    <div className="cryptocurrencies--column-headers--price">Price</div>
-                    <div className="cryptocurrencies--column-headers--change">1h %</div>
-                    <div className="cryptocurrencies--column-headers--change">24h %</div>
-                    <div className="cryptocurrencies--column-headers--change">7d %</div>
-                    <div className="cryptocurrencies--column-headers--market-cap">Market Cap</div>
-                    <div className="cryptocurrencies--column-headers--volume">Volume (24h)</div>
-                    <div className="cryptocurrencies--column-headers--circ-supply">Circulating Supply</div>
+                    <div className="cryptocurrencies--column-headers--rank">
+                        #
+                    </div>
+                    <div className="cryptocurrencies--column-headers--name">
+                        Name
+                    </div>
+                    <div className="cryptocurrencies--column-headers--price">
+                        Price
+                    </div>
+                    <div className="cryptocurrencies--column-headers--change">
+                        1h %
+                    </div>
+                    <div className="cryptocurrencies--column-headers--change">
+                        24h %
+                    </div>
+                    <div className="cryptocurrencies--column-headers--change">
+                        7d %
+                    </div>
+                    <div className="cryptocurrencies--column-headers--market-cap">
+                        Market Cap
+                    </div>
+                    <div className="cryptocurrencies--column-headers--volume">
+                        Volume (24h)
+                    </div>
+                    <div className="cryptocurrencies--column-headers--circ-supply">
+                        Circulating Supply
+                    </div>
                 </section>
                 {/* Cryptocurrency Object Array */}
                 {cryptocurrencies}
