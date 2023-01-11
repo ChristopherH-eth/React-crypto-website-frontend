@@ -21,9 +21,8 @@ function App()
     const [pageNumber, setPageNumber] = React.useState(1)           // Current page number
     const [cryptoCount, setCryptoCount] = React.useState(1)         // Total cryptocurrencies
 
-    const pageUrl = `http://localhost:8000/api/v1/crypto/pages/${pageNumber}/${displayLimit}`
-    // const metaUrl = `http://localhost:8000/api/v1/crypto/meta/?cryptos=${metaStr}`
-    const countUrl= "http://localhost:8000/api/v1/crypto/all"
+    const pageUrl = `http://localhost:8000/api/v1/pages/?page=${pageNumber}&limit=${displayLimit}`
+    const countUrl= "http://localhost:8000/api/v1/all"
 
     // Render initial crypto values and when page is changed
     React.useEffect(() => {
