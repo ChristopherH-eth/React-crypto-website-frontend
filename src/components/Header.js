@@ -5,6 +5,15 @@
  */
 
 /**
+ * @brief The showLogin() function toggles the 'show' class on the login box
+ */
+function showLogin()
+{
+    document.getElementById("login-container").classList.toggle("show")
+    document.getElementById("login-page-mask").classList.toggle("show")
+}
+
+/**
  * @brief The Header() function builds the page header.
  * @return Returns the header to be added to the page
  */
@@ -12,8 +21,18 @@ function Header(props)
 {
     // Set variables to prop values
     const {
-        cryptoCount
+        cryptoCount,
+        loggedIn,
+        onLoggedInChange
     } = props
+
+    /**
+     * @brief The onLogOut() function attempts to log out the current user.
+     */
+    function onLogOut()
+    {
+        onLoggedInChange(false)
+    }
 
     return (
         <header>
@@ -39,12 +58,25 @@ function Header(props)
                     </div>
                 </section>
                 <section className="header--info-bar--button-container">
-                    <button className="header--info-bar--button">
-                        Login
-                    </button>
-                    <button className="header--info-bar--button">
-                        Sign Up
-                    </button>
+                    {loggedIn === false ? 
+                        <div>
+                            <button 
+                                className="header--info-bar--button" 
+                                id="login-button" 
+                                onClick={showLogin}
+                            >
+                                Login
+                            </button>
+                            <button className="header--info-bar--button">
+                                Sign Up
+                            </button>
+                        </div>
+                    :
+                        <button
+                            onClick={onLogOut}
+                        >
+                            Log Out
+                        </button>}
                 </section>
             </section>
             <section className="header--navigation">

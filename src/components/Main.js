@@ -16,23 +16,6 @@ function showDropdown()
     document.getElementById("rowbtn--content").classList.toggle("show")
 }
 
-// Closes dropdown menus if the user clicks outside of it
-window.onclick = function(event) 
-{
-    if (!event.target.matches(".dropbutton")) 
-    {
-        var dropdowns = document.getElementsByClassName("dropbutton--content")
-
-        for (var i = 0; i < dropdowns.length; i++) 
-        {
-            var openDropdown = dropdowns[i]
-
-            if (openDropdown.classList.contains("show"))
-                openDropdown.classList.remove("show")
-        }
-    }
-}
-
 /**
  * @brief The Main() function builds the module, which consists of the module itself, as well as separate
  *      Crypto submodules. When there are changes to the Crypto submodules (such as changes in supply, price,

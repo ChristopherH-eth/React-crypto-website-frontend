@@ -18,6 +18,107 @@ html, body
     color: #DEEBE8;
 }
 
+.app-container
+{
+    position: relative;
+}
+
+.login-page-mask
+{
+    display: none;
+    background-color: black;
+    opacity: 0.5;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    overflow: hidden;
+}
+
+/**
+ * Login
+ */
+.login-container
+{
+    display: none;
+    position: absolute;
+    top: 12.5rem;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-box
+{
+    text-align: center;
+    max-width: 35%;
+    background-color: #21222A;
+    border-radius: 0.3125rem;
+    padding: 0.625rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-box--header-container
+{
+    display: flex;
+    justify-content: center;
+}
+
+.login-box--header-container--header
+{
+    margin: 1rem;
+}
+
+.login-box--header-container--header:hover
+{
+    cursor: pointer;
+}
+
+.login-box--input-container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    padding: 1rem;
+}
+
+.login-box--email-address
+{
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+}
+
+.login-box--email-address--input
+{
+    margin-bottom: 1rem;
+    padding: 0.625rem;
+    border-radius: 0.3125rem;
+    border: none;
+}
+
+.login-box--password
+{
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+}
+
+.login-box--password--input
+{
+    margin-bottom: 1rem;
+    padding: 0.625rem;
+    border-radius: 0.3125rem;
+    border: none;
+}
+
+.login-box--login-button
+{
+    margin-bottom: 1rem;
+}
+
 /**
  * Buttons
  */
@@ -36,6 +137,11 @@ button
 button:hover
 {
     cursor: pointer;
+}
+
+button:active
+{
+    background-color: #323942;
 }
 
 .header--info-bar--button
