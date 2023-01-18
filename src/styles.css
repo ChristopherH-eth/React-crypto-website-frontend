@@ -185,6 +185,11 @@ button:active
     display: block;
 }
 
+.header--selected
+{
+    color: #61DAFB;
+}
+
 /**
  * Header
  */
@@ -437,7 +442,7 @@ main
     cursor: pointer;
 }
 
-.selected
+.pagination--selected
 {
     background-color: #58626f;
 }

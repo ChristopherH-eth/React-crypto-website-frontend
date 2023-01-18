@@ -5,15 +5,6 @@
  */
 
 /**
- * @brief The showLogin() function toggles the 'show' class on the login box
- */
-function showLogin()
-{
-    document.getElementById("login-container").classList.toggle("show")
-    document.getElementById("login-page-mask").classList.toggle("show")
-}
-
-/**
  * @brief The Header() function builds the page header.
  * @return Returns the header to be added to the page
  */
@@ -23,8 +14,35 @@ function Header(props)
     const {
         cryptoCount,
         loggedIn,
-        onLoggedInChange
+        onLoggedInChange,
+        onSetLoginForm
     } = props
+
+    /**
+     * @brief The showLogin() function toggles the 'show' class on the login box
+     */
+    function showLogin()
+    {
+        document.getElementById("login-container").classList.toggle("show")
+        document.getElementById("login-page-mask").classList.toggle("show")
+        document.getElementById("login-box--header-container--login-header")
+            .classList.toggle("header--selected")
+
+        onSetLoginForm(true)
+    }
+
+    /**
+     * @brief The showSignup() function toggles the 'show' class on the login box
+     */
+    function showSignup()
+    {
+        document.getElementById("login-container").classList.toggle("show")
+        document.getElementById("login-page-mask").classList.toggle("show")
+        document.getElementById("login-box--header-container--signup-header")
+            .classList.toggle("header--selected")
+
+        onSetLoginForm(false)
+    }
 
     /**
      * @brief The onLogOut() function attempts to log out the current user.
@@ -67,7 +85,11 @@ function Header(props)
                             >
                                 Login
                             </button>
-                            <button className="header--info-bar--button">
+                            <button 
+                                className="header--info-bar--button"
+                                id="signup-button"
+                                onClick={showSignup}
+                            >
                                 Sign Up
                             </button>
                         </div>

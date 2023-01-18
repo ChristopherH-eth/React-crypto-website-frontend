@@ -63,7 +63,7 @@ function Pagination(props)
         
         return (
             // Return each list item based on their index; add 'selected' class to the current page
-            <li className={`pagination-item ${pageNumber === props.pageNumber ? "selected" : ""}`} 
+            <li className={`pagination-item ${pageNumber === props.pageNumber ? "pagination--selected" : ""}`} 
                 key={index} 
                 onClick={() => onPageChange(pageNumber)}
             >

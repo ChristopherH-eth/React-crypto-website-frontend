@@ -1,3 +1,5 @@
+import React from "react"
+
 /**
  * @file Login.js
  * @author 0xChristopher
@@ -11,7 +13,9 @@
 function Login(props)
 {
     const {
-        onLoggedInChange
+        loginForm,
+        onLoggedInChange,
+        onSetLoginForm
     } = props
 
     /**
@@ -20,41 +24,144 @@ function Login(props)
      */
     function onLogin()
     {
-        var emailAddress = document.getElementById("login-box--email-address--input").value
-        var password = document.getElementById("login-box--password--input").value
+        const emailAddress = document.getElementById("login-box--email-address--input").value
+        const password = document.getElementById("login-box--password--input").value
 
         console.log(emailAddress + " " + password)
-        // Submit credentials to server
+        // TODO: Submit credentials to server
+
+        const pageMask = document.getElementsByClassName("login-page-mask")
+        const loginHeaders = document.getElementsByClassName("login-box--header-container--header")
+        const loginBox = document.getElementsByClassName("login-container")
+
+        // TODO: Validate credentials (temporary check here)
+        if (!emailAddress || !password)
+            return
+
+        for (let i = 0; i < pageMask.length; i++) 
+        {
+            let openPageMask = pageMask[i]
+
+            if (openPageMask.classList.contains("show"))
+                openPageMask.classList.remove("show")
+        }
+
+        for (let i = 0; i < loginHeaders.length; i++) 
+        {
+            let selectedHeaders = loginHeaders[i]
+
+            if (selectedHeaders.classList.contains("header--selected"))
+                selectedHeaders.classList.remove("header--selected")
+        }
+
+        for (let i = 0; i < loginBox.length; i++) 
+        {
+            let openLoginBox = loginBox[i]
+
+            if (openLoginBox.classList.contains("show"))
+                openLoginBox.classList.remove("show")
+        }
 
         onLoggedInChange(true)
+    }
+
+    /**
+     * @brief The switchToLogin() function switches the login form to the login variant.
+     */
+    function switchToLogin()
+    {
+        document.getElementById("login-box--header-container--login-header")
+            .classList.add("header--selected")
+        document.getElementById("login-box--header-container--signup-header")
+            .classList.remove("header--selected")
+
+        // Show the login form
+        onSetLoginForm(true)
+    }
+
+    /**
+     * @brief The switchToSignup() function switches the login form the signup variant.
+     */
+    function switchToSignup()
+    {
+        document.getElementById("login-box--header-container--signup-header")
+            .classList.add("header--selected")
+        document.getElementById("login-box--header-container--login-header")
+            .classList.remove("header--selected")
+
+        // Show the signup form
+        onSetLoginForm(false)
     }
 
     return (
         <div className="login-container" id="login-container">
             <section className="login-box">
                 <div className="login-box--header-container">
-                    <h1 className="login-box--header-container--header">Log In</h1>
-                    <h1 className="login-box--header-container--header">Sign Up</h1>
+                    <h1 
+                        className="login-box--header-container--header"
+                        id="login-box--header-container--login-header"
+                        onClick={switchToLogin}
+                    >Log In</h1>
+                    <h1 
+                        className="login-box--header-container--header"
+                        id="login-box--header-container--signup-header"
+                        onClick={switchToSignup}
+                    >Sign Up</h1>
                 </div>
-                <div className="login-box--input-container">
-                    <div className="login-box--email-address">Email Address</div>
-                    <input 
-                        type="text"
-                        className="login-box--email-address--input" 
-                        id="login-box--email-address--input"
-                        placeholder="Enter your email address..."
-                        required
-                    ></input>
-                    <div className="login-box--password">Password</div>
-                    <input 
-                        type="text"
-                        className="login-box--password--input" 
-                        id="login-box--password--input"
-                        placeholder="Enter your password..."
-                        required
-                    ></input>
-                </div>
-                <button className="login-box--login-button" onClick={onLogin}>Log In</button>
+                {/* Login/Signup form */}
+                {/* Show login form if loginForm is true, otherwise show signup form */}
+                {loginForm === true ?
+                <form className="login-box--login-form">
+                    <div className="login-box--input-container">
+                        <div className="login-box--email-address">Email Address</div>
+                        <input 
+                            type="text"
+                            className="login-box--email-address--input" 
+                            id="login-box--email-address--input"
+                            placeholder="Enter your email address..."
+                            required
+                        ></input>
+                        <div className="login-box--password">Password</div>
+                        <input 
+                            type="text"
+                            className="login-box--password--input" 
+                            id="login-box--password--input"
+                            placeholder="Enter your password..."
+                            required
+                        ></input>
+                    </div>
+                    <button 
+                        type="submit" 
+                        className="login-box--login-button" 
+                        // onClick={onLogin}
+                    >Log In</button>
+                </form>
+                :
+                <form className="login-box--signup-form">
+                    <div className="login-box--input-container">
+                        <div className="login-box--email-address">Email Address</div>
+                        <input 
+                            type="text"
+                            className="login-box--email-address--input" 
+                            id="login-box--email-address--input"
+                            placeholder="Enter your email address..."
+                            required
+                        ></input>
+                        <div className="login-box--password">Password</div>
+                        <input 
+                            type="text"
+                            className="login-box--password--input" 
+                            id="login-box--password--input"
+                            placeholder="Enter your password..."
+                            required
+                        ></input>
+                    </div>
+                    <button 
+                        type="submit" 
+                        className="login-box--login-button" 
+                    >Sign Up</button>
+                </form>
+                }
             </section>
         </div>
     )

@@ -17,42 +17,46 @@ window.onclick = function(event)
     // Dropdown menus
     if (!event.target.matches(".dropbutton")) 
     {
-        var dropdowns = document.getElementsByClassName("dropbutton--content")
+        const dropdowns = document.getElementsByClassName("dropbutton--content")
 
-        for (var i = 0; i < dropdowns.length; i++) 
+        for (let i = 0; i < dropdowns.length; i++) 
         {
-            var openDropdown = dropdowns[i]
+            let openDropdown = dropdowns[i]
 
             if (openDropdown.classList.contains("show"))
                 openDropdown.classList.remove("show")
         }
     }
 
-    // Page masks
+    // Login popup and page mask
     if (event.target.matches("#login-page-mask") || event.target.matches(".login-container")) 
     {
-        var loginBox = document.getElementsByClassName("login-container")
+        const pageMask = document.getElementsByClassName("login-page-mask")
+        const loginHeaders = document.getElementsByClassName("login-box--header-container--header")
+        const loginBox = document.getElementsByClassName("login-container")
 
-        for (var j = 0; j < loginBox.length; j++) 
+        for (let i = 0; i < pageMask.length; i++) 
         {
-            var openLoginBox = loginBox[j]
-
-            if (openLoginBox.classList.contains("show"))
-                openLoginBox.classList.remove("show")
-        }
-    }
-
-    // Login popup
-    if (event.target.matches("#login-page-mask") || event.target.matches(".login-container")) 
-    {
-        var pageMask = document.getElementsByClassName("login-page-mask")
-
-        for (var k = 0; k < loginBox.length; k++) 
-        {
-            var openPageMask = pageMask[k]
+            let openPageMask = pageMask[i]
 
             if (openPageMask.classList.contains("show"))
                 openPageMask.classList.remove("show")
+        }
+
+        for (let i = 0; i < loginHeaders.length; i++) 
+        {
+            let selectedHeaders = loginHeaders[i]
+
+            if (selectedHeaders.classList.contains("header--selected"))
+                selectedHeaders.classList.remove("header--selected")
+        }
+
+        for (let i = 0; i < loginBox.length; i++) 
+        {
+            let openLoginBox = loginBox[i]
+
+            if (openLoginBox.classList.contains("show"))
+                openLoginBox.classList.remove("show")
         }
     }
 }
@@ -68,6 +72,7 @@ function App()
     const [pageNumber, setPageNumber] = React.useState(1)           // Current page number
     const [cryptoCount, setCryptoCount] = React.useState(1)         // Total cryptocurrencies
     const [loggedIn, setLoggedIn] = React.useState(false)           // User is logged in
+    const [loginForm, setLoginForm] = React.useState(true)          // Whether to use the login or signup form
 
     const pageUrl = `http://localhost:8000/api/v1/pages/?page=${pageNumber}&limit=${displayLimit}`
     const countUrl= "http://localhost:8000/api/v1/all/count/"
@@ -108,6 +113,7 @@ function App()
                 cryptoCount={cryptoCount}
                 loggedIn={loggedIn}
                 onLoggedInChange={(login) => setLoggedIn(login)}
+                onSetLoginForm={(form) => setLoginForm(form)}
             />
             <Main 
                 cryptoData={cryptoData}
@@ -121,7 +127,9 @@ function App()
             {/* Login Page Mask */}
             <div className="login-page-mask" id="login-page-mask" />
             <Login
+                loginForm={loginForm}
                 onLoggedInChange={(login) => setLoggedIn(login)}
+                onSetLoginForm={(form) => setLoginForm(form)}
             />
         </div>
     )
