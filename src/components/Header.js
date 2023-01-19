@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 /**
  * @file Header.js
  * @author 0xChristopher
@@ -107,7 +109,7 @@ function Header(props)
                 </h1>
                 <nav className="header--navigation--container">
                     <div className="header--navigation--item">
-                        Cryptocurrencies
+                        <Link to={"/"} className="link">Cryptocurrencies</Link>
                     </div>
                     <div className="header--navigation--item">
                         Exchanges

@@ -1,6 +1,6 @@
 import React from "react"
+import { Outlet, useLocation } from "react-router-dom"
 import Header from "./components/Header"
-import Main from "./components/Main"
 import Footer from "./components/Footer"
 import Login from "./components/Login"
 
@@ -77,6 +77,30 @@ function App()
     const pageUrl = `http://localhost:8000/api/v1/pages/?page=${pageNumber}&limit=${displayLimit}`
     const countUrl= "http://localhost:8000/api/v1/all/count/"
 
+    const location = useLocation()                                  // Current URL path
+
+    /**
+     * @brief The getProps() function checks the current URL path name and returns relevant props.
+     * @returns Returns props to pass to the child component
+     */
+    function getProps()
+    {
+        switch(location.pathname)
+        {
+            case "/":
+                return ([
+                    cryptoData, 
+                    displayLimit, 
+                    setDisplayLimit, 
+                    pageNumber, 
+                    setPageNumber, 
+                    cryptoCount
+                ])
+            default:
+                break
+        }
+    }
+
     // Render initial crypto values and when page is changed
     React.useEffect(() => {
         fetch(pageUrl)
@@ -115,14 +139,7 @@ function App()
                 onLoggedInChange={(login) => setLoggedIn(login)}
                 onSetLoginForm={(form) => setLoginForm(form)}
             />
-            <Main 
-                cryptoData={cryptoData}
-                displayLimit={displayLimit}
-                pageNumber={pageNumber}
-                cryptoCount={cryptoCount}
-                onDisplayLimitChange={(limit) => setDisplayLimit(limit)}
-                onPageChange={(page) => setPageNumber(page)}
-            />
+            <Outlet context={getProps()} />
             <Footer />
             {/* Login Page Mask */}
             <div className="login-page-mask" id="login-page-mask" />

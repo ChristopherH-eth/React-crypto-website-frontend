@@ -1,4 +1,5 @@
 import React from "react"
+import { useOutletContext } from "react-router-dom"
 import Cryptos from "./Cryptos"
 import Pagination from "./Pagination"
 
@@ -22,17 +23,17 @@ function showDropdown()
  *      etc.) the page will re-render to reflect those changes.
  * @return Returns the constructed Main module
  */
-function Main(props)
+function Main()
 {
-    // Set variables to prop values
-    const {
-        cryptoData,
-        displayLimit,
-        pageNumber,
-        cryptoCount,
-        onDisplayLimitChange,
-        onPageChange
-    } = props
+    // Set variables to context values
+    const [
+        cryptoData, 
+        displayLimit, 
+        setDisplayLimit, 
+        pageNumber, 
+        setPageNumber, 
+        cryptoCount
+    ] = useOutletContext()
 
     const page20 = 20                                               // Page limit of 20 items
     const page50 = 50                                               // Page limit of 50 items
@@ -54,7 +55,7 @@ function Main(props)
         pageSize={displayLimit}
         pageNumber={pageNumber}
         maxPages={pageLimit}
-        onPageChange={onPageChange}
+        onPageChange={(page) => setPageNumber(page)}
     />
 
     /**
@@ -63,8 +64,8 @@ function Main(props)
      */
     function changeDisplayLimit20()
     {
-        onDisplayLimitChange(page20)
-        onPageChange(1)
+        setDisplayLimit(page20)
+        setPageNumber(1)
     }
 
     /**
@@ -73,8 +74,8 @@ function Main(props)
      */
     function changeDisplayLimit50()
     {
-        onDisplayLimitChange(page50)
-        onPageChange(1)
+        setDisplayLimit(page50)
+        setPageNumber(1)
     }
 
     /**
@@ -83,8 +84,8 @@ function Main(props)
      */
     function changeDisplayLimit100()
     {
-        onDisplayLimitChange(page100)
-        onPageChange(1)
+        setDisplayLimit(page100)
+        setPageNumber(1)
     }
 
     return (

@@ -18,6 +18,12 @@ html, body
     color: #DEEBE8;
 }
 
+.link
+{
+    color: #DEEBE8;
+    text-decoration: none;
+}
+
 .app-container
 {
     position: relative;
@@ -34,6 +40,13 @@ html, body
     bottom: 0;
     top: 0;
     overflow: hidden;
+}
+
+.error-page
+{
+    color: black;
+    text-align: center;
+    margin-top: 12.5rem;
 }
 
 /**

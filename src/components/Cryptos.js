@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom";
 
 /**
  * @file Cryptos.js
@@ -38,33 +39,43 @@ function fixDecimals(x)
  */
 function Cryptos(props)
 {
+    // Set variables to prop values
+    const {
+        index,
+        name,
+        logo,
+        symbol,
+        circulating_supply,
+        quote
+    } = props
+
     return (
         <section className="cryptos">
-            <div className="cryptos--rank">{props.index}</div>
+            <div className="cryptos--rank">{index}</div>
             <div className="cryptos--name">
-                {props.logo ? <img className="cryptos--name--logo" src={`${props.logo}`} alt="logo" /> : ""}
-                {props.name} {props.symbol}
+                {logo ? <img className="cryptos--name--logo" src={`${logo}`} alt="logo" /> : ""}
+                <Link to={`/currencies/${name}/`} className="link">{name}</Link>&nbsp;{symbol}
             </div>
-            <div className="cryptos--price">${fixDecimals(props.quote.USD.price)}</div>
+            <div className="cryptos--price">${fixDecimals(quote.USD.price)}</div>
             <div className="cryptos--change">
-                <div className={props.quote.USD.percent_change_1h >= 0 ? "green" : "red"}>
-                    {props.quote.USD.percent_change_1h.toFixed(2)}%
+                <div className={quote.USD.percent_change_1h >= 0 ? "green" : "red"}>
+                    {quote.USD.percent_change_1h.toFixed(2)}%
                 </div>
             </div>
             <div className="cryptos--change">
-                <div className={props.quote.USD.percent_change_24h >= 0 ? "green" : "red"}>
-                    {props.quote.USD.percent_change_24h.toFixed(2)}%
+                <div className={quote.USD.percent_change_24h >= 0 ? "green" : "red"}>
+                    {quote.USD.percent_change_24h.toFixed(2)}%
                 </div>
             </div>
             <div className="cryptos--change">
-                <div className={props.quote.USD.percent_change_7d >= 0 ? "green" : "red"}>
-                    {props.quote.USD.percent_change_7d.toFixed(2)}%
+                <div className={quote.USD.percent_change_7d >= 0 ? "green" : "red"}>
+                    {quote.USD.percent_change_7d.toFixed(2)}%
                 </div>
             </div>
-            <div className="cryptos--market-cap">${`${addCommas(props.quote.USD.market_cap.toFixed())}`}</div>
-            <div className="cryptos--volume">${`${addCommas(props.quote.USD.volume_24h.toFixed())}`}</div>
-            <div className="cryptos--circ-supply">{`${addCommas(props.circulating_supply.toFixed())} `}
-                {props.symbol}</div>
+            <div className="cryptos--market-cap">${`${addCommas(quote.USD.market_cap.toFixed())}`}</div>
+            <div className="cryptos--volume">${`${addCommas(quote.USD.volume_24h.toFixed())}`}</div>
+            <div className="cryptos--circ-supply">{`${addCommas(circulating_supply.toFixed())} `}
+                {symbol}</div>
         </section>
     )
 }
