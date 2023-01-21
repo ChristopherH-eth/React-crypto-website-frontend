@@ -1,5 +1,6 @@
 import React from "react"
 import { Outlet, useLocation } from "react-router-dom"
+import { URLS } from "./utils/config"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import Login from "./components/Login"
@@ -74,8 +75,8 @@ function App()
     const [loggedIn, setLoggedIn] = React.useState(false)           // User is logged in
     const [loginForm, setLoginForm] = React.useState(true)          // Whether to use the login or signup form
 
-    const pageUrl = `http://localhost:8000/api/v1/pages/?page=${pageNumber}&limit=${displayLimit}`
-    const countUrl= "http://localhost:8000/api/v1/all/count/"
+    const pageUrl = `${URLS.api}/pages/?page=${pageNumber}&limit=${displayLimit}`
+    const countUrl = `${URLS.api}/all/count/`
 
     const location = useLocation()                                  // Current URL path
 
@@ -127,7 +128,7 @@ function App()
         }, 30000)
 
         return () => clearInterval(update)
-    }, [pageUrl])
+    }, [pageUrl, countUrl])
 
     console.log("Re-rendering")
 

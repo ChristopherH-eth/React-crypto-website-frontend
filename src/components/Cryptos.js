@@ -42,6 +42,7 @@ function Cryptos(props)
     // Set variables to prop values
     const {
         index,
+        id,
         name,
         logo,
         symbol,
@@ -50,33 +51,39 @@ function Cryptos(props)
     } = props
 
     return (
-        <section className="cryptos">
-            <div className="cryptos--rank">{index}</div>
-            <div className="cryptos--name">
-                {logo ? <img className="cryptos--name--logo" src={`${logo}`} alt="logo" /> : ""}
-                <Link to={`/currencies/${name}/`} className="link">{name}</Link>&nbsp;{symbol}
-            </div>
-            <div className="cryptos--price">${fixDecimals(quote.USD.price)}</div>
-            <div className="cryptos--change">
-                <div className={quote.USD.percent_change_1h >= 0 ? "green" : "red"}>
-                    {quote.USD.percent_change_1h.toFixed(2)}%
-                </div>
-            </div>
-            <div className="cryptos--change">
-                <div className={quote.USD.percent_change_24h >= 0 ? "green" : "red"}>
-                    {quote.USD.percent_change_24h.toFixed(2)}%
-                </div>
-            </div>
-            <div className="cryptos--change">
-                <div className={quote.USD.percent_change_7d >= 0 ? "green" : "red"}>
-                    {quote.USD.percent_change_7d.toFixed(2)}%
-                </div>
-            </div>
-            <div className="cryptos--market-cap">${`${addCommas(quote.USD.market_cap.toFixed())}`}</div>
-            <div className="cryptos--volume">${`${addCommas(quote.USD.volume_24h.toFixed())}`}</div>
-            <div className="cryptos--circ-supply">{`${addCommas(circulating_supply.toFixed())} `}
-                {symbol}</div>
-        </section>
+        <div>
+            {props ? (
+                <section className="cryptos">
+                    <div className="cryptos--rank">{index}</div>
+                    <div className="cryptos--name">
+                        {logo ? <img className="cryptos--name--logo" src={`${logo}`} alt="logo" /> : ""}
+                        <Link to={`/currencies/${id}/`} className="link">{name}</Link>&nbsp;{symbol}
+                    </div>
+                    <div className="cryptos--price">${fixDecimals(quote.USD.price)}</div>
+                    <div className="cryptos--change">
+                        <div className={quote.USD.percent_change_1h >= 0 ? "green" : "red"}>
+                            {quote.USD.percent_change_1h.toFixed(2)}%
+                        </div>
+                    </div>
+                    <div className="cryptos--change">
+                        <div className={quote.USD.percent_change_24h >= 0 ? "green" : "red"}>
+                            {quote.USD.percent_change_24h.toFixed(2)}%
+                        </div>
+                    </div>
+                    <div className="cryptos--change">
+                        <div className={quote.USD.percent_change_7d >= 0 ? "green" : "red"}>
+                            {quote.USD.percent_change_7d.toFixed(2)}%
+                        </div>
+                    </div>
+                    <div className="cryptos--market-cap">${`${addCommas(quote.USD.market_cap.toFixed())}`}</div>
+                    <div className="cryptos--volume">${`${addCommas(quote.USD.volume_24h.toFixed())}`}</div>
+                    <div className="cryptos--circ-supply">{`${addCommas(circulating_supply.toFixed())} `}
+                        {symbol}</div>
+                </section>
+            ) : (
+                <div>Loading...</div>
+            )}
+        </div>
     )
 }
 
