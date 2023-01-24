@@ -4,6 +4,26 @@
  * @brief This file contains the css for the Crypto Website.
  */
 
+/**
+ * Table of Contents
+ * 1. General Styles
+ * 2. Toggle Styles
+ * 3. Login Module
+ * 4. Buttons
+ * 5. Header Module
+ * 6. Main Module
+ * 7. Cryptos Module
+ * 8. Currency Module
+ * 9. Pagination Module
+ * 10. Footer Module
+ */
+
+/************************************************************
+ * 1. General Styles
+ *
+ *
+ ************************************************************/
+
 *
 {
     box-sizing: border-box;
@@ -49,9 +69,33 @@ html, body
     margin-top: 12.5rem;
 }
 
-/**
- * Login
- */
+/************************************************************
+ * 2. Toggle Styles
+ *
+ *
+ ************************************************************/
+
+.show
+{
+    display: block;
+}
+
+.green
+{
+    color: green;
+}
+
+.red
+{
+    color: red;
+}
+
+/************************************************************
+ * 3. Login Module
+ *
+ *
+ ************************************************************/
+
 .login-container
 {
     display: none;
@@ -132,9 +176,11 @@ html, body
     margin-bottom: 1rem;
 }
 
-/**
- * Buttons
- */
+/************************************************************
+ * 4. Buttons
+ *
+ *
+ ************************************************************/
 
 button
 {
@@ -193,19 +239,17 @@ button:active
     cursor: pointer;
 }
 
-.show
-{
-    display: block;
-}
-
 .header--selected
 {
     color: #61DAFB;
 }
 
-/**
- * Header
- */
+/************************************************************
+ * 5. Header Module
+ *
+ *
+ ************************************************************/
+
 header
 {
     margin: 0rem;
@@ -288,9 +332,12 @@ header
     text-decoration: none;
 }
 
-/**
- * Main
- */
+/************************************************************
+ * 6. Main Module
+ *
+ *
+ ************************************************************/
+
 main
 {
     display: flex;
@@ -304,9 +351,12 @@ main
     min-height: 2.8125rem;
 }
 
-/**
- * Cryptos
- */
+/************************************************************
+ * 7. Cryptos Module
+ *
+ *
+ ************************************************************/
+
 .cryptocurrencies--options
 {
     display: flex;
@@ -397,16 +447,6 @@ main
     font-weight: bold;
 }
 
-.green
-{
-    color: green;
-}
-
-.red
-{
-    color: red;
-}
-
 .cryptocurrencies--column-headers--market-cap, .cryptos--market-cap
 {
     width: 15%;
@@ -434,9 +474,62 @@ main
     min-height: 2.8125rem;
 }
 
-/**
- * Pagination
- */
+/************************************************************
+ * 8. Currency Module
+ *
+ *
+ ************************************************************/
+
+.currency--container
+{
+    display: flex;
+    flex-direction:column;
+}
+
+.currency--logo
+{
+    width: 2rem;
+    height: 2rem;
+    margin-right: 0.3125rem;
+}
+
+.currency--data
+{
+    display: flex;
+}
+
+.currency--data--basic
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0;
+    margin-right: auto;
+    padding: 0.625rem;
+}
+
+.currency--data--basic--line
+{
+    display: flex;
+    align-items: center;
+}
+
+.currency--data--price
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.625rem;
+}
+
+/************************************************************
+ * 9. Pagination Module
+ *
+ *
+ ************************************************************/
+
 .pagination-container
 {
     list-style-type: none;
@@ -460,9 +553,12 @@ main
     background-color: #58626f;
 }
 
-/**
- * Footer
- */
+/************************************************************
+ * 10. Footer Module
+ *
+ *
+ ************************************************************/
+
 footer
 {
     margin: 0;

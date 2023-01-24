@@ -8,38 +8,76 @@ import { URLS } from "../utils/config"
  * @brief This file is responsible for the Currency module of the cryptocurrency website.
  */
 
+/**
+ * @brief The Currency() function builds the currency module.
+ * @return Returns the currency module to be added to the page
+ */
 function Currency()
 {
     const {
-        currency
+        currency                                                            // Currency id from URL
     } = useParams()
 
-    const [currencyData, setCurrencyData] = React.useState([])              // Current cryptocurrency
+    const [currencyMetadata, setCurrencyMetadata] = React.useState([])      // Current currency metadata
+    const [currencyData, setCurrencyData] = React.useState()                // Current currency data
 
-    const currencyUrl = `${URLS.api}/metadata/?cryptos=${currency}`
+    const currencyMetadataUrl = `${URLS.api}/metadata/?cryptos=${currency}`
+    const currencyDataUrl = `${URLS.api}/cryptocurrencies/?cryptoId=${currency}`
 
-    // Get cryptocurrency metadata from server
+    // Get currency data from server
     React.useEffect(() => {
-        fetch(currencyUrl)
+        fetch(currencyMetadataUrl)
             .then((res) => res.json())
-            .then((res) => setCurrencyData(res[0]))
+            .then((res) => setCurrencyMetadata(res[0]))
             .catch(console.error)
-    }, [currencyUrl])
+
+        fetch(currencyDataUrl)
+            .then((res) => res.json())
+            .then((res) => setCurrencyData(res))
+            .catch(console.error)
+    }, [currencyMetadataUrl, currencyDataUrl])
+
+    // Used for testing
+    console.log(currencyMetadata)
+    console.log(currencyData)
 
     return (
-        <main>
-            <img src={currencyData.logo} alt="currency logo" className="cryptos--name--logo" />
-            <h1>{currencyData.name}&nbsp;{currencyData.symbol}</h1>
-            {currencyData ? (
-                <div>
-                    <div>
-                        {currencyData.id}
+        <main className="currency">
+            {currencyMetadata && currencyData ? (
+                <div className="currency--container">
+                    <div className="currency--data">
+                        {/* Currency Basic Data */}
+                        <div className="currency--data--basic">
+                            <div className="currency--data--basic--line">
+                                <img src={currencyMetadata.logo} 
+                                    alt="currency logo" 
+                                    className="currency--logo" 
+                                />
+                                <h1>{currencyMetadata.name}&nbsp;{currencyMetadata.symbol}</h1>
+                            </div>
+                            <div className="currency--data--basic--line">
+                                <div className="currency--data--basic--rank">
+                                    Rank {currencyData.cmc_rank}
+                                </div>
+                                <div className="currency--data--basic--categoty">
+                                    {currencyMetadata.category}
+                                </div>
+                            </div>
+                            <div className="currency--data--basic--line">**Links Go Here**</div>
+                            <div>Tags:</div>
+                            <div className="currency--data--basic--line">**Tag Links Go Here**</div>
+                        </div>
+                        {/* Currency Price Data */}
+                        <div className="currency--data--price">
+                            <div>{currencyData.name} Price ({currencyData.symbol})</div>
+                            <div>{currencyData.quote.USD.price}</div>
+                        </div>
                     </div>
-                    <div>{currencyData.description}</div>
-                    <div>{console.log(currencyData) /* For Testing */}</div>
+                    <div>{currencyMetadata.id}</div>
+                    <div>{currencyMetadata.description}</div>
                 </div>
             ) : (
-                <div>Loading...</div>
+                <div className="currency--container">Loading...</div>
             )}
         </main>
     )
