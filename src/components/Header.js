@@ -25,8 +25,8 @@ function Header(props)
      */
     function showLogin()
     {
-        document.getElementById("login-container").classList.toggle("show")
-        document.getElementById("login-page-mask").classList.toggle("show")
+        document.getElementById("login-container").classList.add("show")
+        document.getElementById("login-page-mask").classList.add("show")
         document.getElementById("login-box--header-container--login-header")
             .classList.toggle("header--selected")
 
@@ -38,8 +38,8 @@ function Header(props)
      */
     function showSignup()
     {
-        document.getElementById("login-container").classList.toggle("show")
-        document.getElementById("login-page-mask").classList.toggle("show")
+        document.getElementById("login-container").classList.add("show")
+        document.getElementById("login-page-mask").classList.add("show")
         document.getElementById("login-box--header-container--signup-header")
             .classList.toggle("header--selected")
 

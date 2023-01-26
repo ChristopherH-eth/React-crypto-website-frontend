@@ -1,4 +1,5 @@
 import React from "react"
+import { URLS } from "../utils/config"
 
 /**
  * @file Login.js
@@ -18,6 +19,8 @@ function Login(props)
         onSetLoginForm
     } = props
 
+    const loginUrl = `${URLS.api}/login/`
+
     /**
      * @brief The onLogin() function accepts credentials entered by the user and attempts to log them 
      *      into the website.
@@ -27,8 +30,24 @@ function Login(props)
         const emailAddress = document.getElementById("login-box--email-address--input").value
         const password = document.getElementById("login-box--password--input").value
 
-        console.log(emailAddress + " " + password)
-        // TODO: Submit credentials to server
+        const loginBody = {
+            email: emailAddress,
+            password: password
+        }
+
+        console.log(loginBody)
+        
+        fetch(loginUrl, {
+            method: "POST",
+            mode: "cors",
+            body: JSON.stringify(loginBody),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+        })
+            .then((res) => res.json())
+            .then((res) => console.log(res))
+            .catch(console.error)
+
+        onLoggedInChange(true)
 
         const pageMask = document.getElementsByClassName("login-page-mask")
         const loginHeaders = document.getElementsByClassName("login-box--header-container--header")
@@ -61,8 +80,6 @@ function Login(props)
             if (openLoginBox.classList.contains("show"))
                 openLoginBox.classList.remove("show")
         }
-
-        onLoggedInChange(true)
     }
 
     /**
@@ -93,6 +110,11 @@ function Login(props)
         onSetLoginForm(false)
     }
 
+    function formLogIn(e)
+    {
+        e.preventDefault()
+    }
+
     return (
         <div className="login-container" id="login-container">
             <section className="login-box">
@@ -111,7 +133,7 @@ function Login(props)
                 {/* Login/Signup form */}
                 {/* Show login form if loginForm is true, otherwise show signup form */}
                 {loginForm === true ?
-                <form className="login-box--login-form">
+                <form className="login-box--login-form" onSubmit={(e) => formLogIn(e)}>
                     <div className="login-box--input-container">
                         <div className="login-box--email-address">Email Address</div>
                         <input 
@@ -131,9 +153,8 @@ function Login(props)
                         ></input>
                     </div>
                     <button 
-                        type="submit" 
                         className="login-box--login-button" 
-                        // onClick={onLogin}
+                        onClick={onLogin}
                     >Log In</button>
                 </form>
                 :
