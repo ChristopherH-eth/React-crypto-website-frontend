@@ -104,24 +104,32 @@ function App()
 
     // Render initial crypto values and when page is changed
     React.useEffect(() => {
-        fetch(pageUrl)
+        fetch(pageUrl, {
+            method: "GET"
+        })
             .then((res) => res.json())
             .then((res) => setCryptoData(res))
             .catch(console.error)
         
-        fetch(countUrl)
+        fetch(countUrl, {
+            method: "GET"
+        })
             .then((res) => res.json())
             .then((res) => setCryptoCount(res))
             .catch(console.error)
 
         // Check for updates every 30 seconds
         const update = setInterval(() => {
-            fetch(pageUrl)
+            fetch(pageUrl, {
+                method: "GET"
+            })
                 .then((res) => res.json())
                 .then((res) => setCryptoData(res))
                 .catch(console.error)
             
-            fetch(countUrl)
+            fetch(countUrl, {
+                method: "GET"
+            })
                 .then((res) => res.json())
                 .then((res) => setCryptoCount(res))
                 .catch(console.error)

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { URLS } from "../utils/config"
 
 /**
  * @file Header.js
@@ -19,6 +20,8 @@ function Header(props)
         onLoggedInChange,
         onSetLoginForm
     } = props
+
+    const cookieUrl = `${URLS.api}/cookies/`
 
     /**
      * @brief The showLogin() function toggles the 'show' class on the login box
@@ -51,6 +54,14 @@ function Header(props)
      */
     function onLogOut()
     {
+        fetch(cookieUrl, {
+            method: "GET",
+            credentials: "include"
+        })
+            .then((res) => res.json())
+            .then((res) => console.log(res))
+            .catch(console.error)
+
         onLoggedInChange(false)
     }
 

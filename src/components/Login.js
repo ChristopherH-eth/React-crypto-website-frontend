@@ -34,17 +34,16 @@ function Login(props)
             email: emailAddress,
             password: password
         }
-
-        console.log(loginBody)
         
         fetch(loginUrl, {
             method: "POST",
             mode: "cors",
-            body: JSON.stringify(loginBody),
-            headers: {"Content-type": "application/json; charset=UTF-8"}
+            credentials: "include",
+            headers: {"Content-type": "application/json; charset=UTF-8"},
+            body: JSON.stringify(loginBody)
         })
-            .then((res) => res.json())
-            .then((res) => console.log(res))
+            .then((res) => res.json().then((data) => ({status: res.status, body: data})))
+            .then((obj) => console.log(obj))
             .catch(console.error)
 
         onLoggedInChange(true)
@@ -54,8 +53,8 @@ function Login(props)
         const loginBox = document.getElementsByClassName("login-container")
 
         // TODO: Validate credentials (temporary check here)
-        if (!emailAddress || !password)
-            return
+        // if (!emailAddress || !password)
+        //     return
 
         for (let i = 0; i < pageMask.length; i++) 
         {
@@ -110,6 +109,10 @@ function Login(props)
         onSetLoginForm(false)
     }
 
+    /**
+     * @brief The formLogIn() function prevents the submit button on the login form from re-rendering 
+     *      the page.
+     */
     function formLogIn(e)
     {
         e.preventDefault()
