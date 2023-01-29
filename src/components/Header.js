@@ -18,7 +18,9 @@ function Header(props)
         cryptoCount,
         loggedIn,
         onLoggedInChange,
-        onSetLoginForm
+        onSetLoginForm,
+        currentUser,
+        onSetCurrentUser
     } = props
 
     const cookieUrl = `${URLS.api}/cookies/`
@@ -33,6 +35,7 @@ function Header(props)
         document.getElementById("login-box--header-container--login-header")
             .classList.toggle("header--selected")
 
+        // Set loginForm state variable to true
         onSetLoginForm(true)
     }
 
@@ -46,6 +49,7 @@ function Header(props)
         document.getElementById("login-box--header-container--signup-header")
             .classList.toggle("header--selected")
 
+        // Set loginForm state variable to false
         onSetLoginForm(false)
     }
 
@@ -62,6 +66,8 @@ function Header(props)
             .then((res) => console.log(res))
             .catch(console.error)
 
+        // Clear currentUser state variable and set loggedIn state variable to false
+        onSetCurrentUser()
         onLoggedInChange(false)
     }
 
@@ -88,31 +94,35 @@ function Header(props)
                         ETH Gas:&nbsp;
                     </div>
                 </section>
-                <section className="header--info-bar--button-container">
-                    {loggedIn === false ? 
-                        <div>
-                            <button 
-                                className="header--info-bar--button" 
-                                id="login-button" 
-                                onClick={showLogin}
-                            >
-                                Login
-                            </button>
-                            <button 
-                                className="header--info-bar--button"
-                                id="signup-button"
-                                onClick={showSignup}
-                            >
-                                Sign Up
-                            </button>
+                {loggedIn === false ? 
+                    <section className="header--info-bar--button-container">
+                        <button 
+                            className="header--info-bar--button" 
+                            id="login-button" 
+                            onClick={showLogin}
+                        >
+                            Login
+                        </button>
+                        <button 
+                            className="header--info-bar--button"
+                            id="signup-button"
+                            onClick={showSignup}
+                        >
+                            Sign Up
+                        </button>
+                    </section>
+                :
+                    <section className="header--info-bar--button-container">
+                        <div className="header--info-bar--welcome-text">
+                            Welcome, {currentUser}
                         </div>
-                    :
                         <button
                             onClick={onLogOut}
                         >
                             Log Out
-                        </button>}
-                </section>
+                        </button>
+                    </section>
+                }
             </section>
             <section className="header--navigation">
                 <h1 className="header--navigation--text">

@@ -74,6 +74,7 @@ function App()
     const [cryptoCount, setCryptoCount] = React.useState(1)         // Total cryptocurrencies
     const [loggedIn, setLoggedIn] = React.useState(false)           // User is logged in
     const [loginForm, setLoginForm] = React.useState(true)          // Whether to use the login or signup form
+    const [currentUser, setCurrentUser] = React.useState()          // Current logged in user
 
     const pageUrl = `${URLS.api}/pages/?page=${pageNumber}&limit=${displayLimit}`
     const countUrl = `${URLS.api}/all/count/`
@@ -147,15 +148,18 @@ function App()
                 loggedIn={loggedIn}
                 onLoggedInChange={(login) => setLoggedIn(login)}
                 onSetLoginForm={(form) => setLoginForm(form)}
+                currentUser={currentUser}
+                onSetCurrentUser={(user) => setCurrentUser(user)}
             />
             <Outlet context={getProps()} />
             <Footer />
-            {/* Login Page Mask */}
+            {/* Login Page Mask (dimmed background) */}
             <div className="login-page-mask" id="login-page-mask" />
             <Login
                 loginForm={loginForm}
                 onLoggedInChange={(login) => setLoggedIn(login)}
                 onSetLoginForm={(form) => setLoginForm(form)}
+                onSetCurrentUser={(user) => setCurrentUser(user)}
             />
         </div>
     )
