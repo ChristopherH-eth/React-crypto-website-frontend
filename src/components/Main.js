@@ -1,5 +1,11 @@
 import React from "react"
 import { useOutletContext } from "react-router-dom"
+import { 
+    showLimitDropdown, 
+    changeDisplayLimit20, 
+    changeDisplayLimit50, 
+    changeDisplayLimit100 
+} from "../utils/mainUtil"
 import Cryptos from "./Cryptos"
 import Pagination from "./Pagination"
 
@@ -9,13 +15,7 @@ import Pagination from "./Pagination"
  * @brief This file is responsible for the Main module of the cryptocurrency website.
  */
 
-/**
- * @brief The showDropdown() function toggles the 'show' class on a particular dropdown button
- */
-function showDropdown()
-{
-    document.getElementById("rowbtn--content").classList.toggle("show")
-}
+const limitDropdown = () => showLimitDropdown()                     // Toggle page limit dropdown menu
 
 /**
  * @brief The Main() function builds the module, which consists of the module itself, as well as separate
@@ -40,6 +40,11 @@ function Main()
     const page100 = 100                                             // Page limit of 100 items
     const pageLimit = Math.floor(cryptoCount / displayLimit)        // Limit pagination
 
+    // Component functions stored in mainUtil
+    const displayLimit20 = () => changeDisplayLimit20(page20, setDisplayLimit, setPageNumber)
+    const displayLimit50 = () => changeDisplayLimit50(page50, setDisplayLimit, setPageNumber)
+    const displayLimit100 = () => changeDisplayLimit100(page100, setDisplayLimit, setPageNumber)
+
     // Map fetched cryptocurrency data
     const cryptocurrencies = cryptoData.map((crypto) => {
         return <Cryptos 
@@ -58,36 +63,6 @@ function Main()
         onPageChange={(page) => setPageNumber(page)}
     />
 
-    /**
-     * @brief The changeDisplayLimit20() function sets the number of cryptocurrencies to be displayed
-     *      on each page to 20, and resets the page number to 1 to avoid a blank page populating.
-     */
-    function changeDisplayLimit20()
-    {
-        setDisplayLimit(page20)
-        setPageNumber(1)
-    }
-
-    /**
-     * @brief The changeDisplayLimit50() function sets the number of cryptocurrencies to be displayed
-     *      on each page to 50, and resets the page number to 1 to avoid a blank page populating.
-     */
-    function changeDisplayLimit50()
-    {
-        setDisplayLimit(page50)
-        setPageNumber(1)
-    }
-
-    /**
-     * @brief The changeDisplayLimit100() function sets the number of cryptocurrencies to be displayed
-     *      on each page to 100, and resets the page number to 1 to avoid a blank page populating.
-     */
-    function changeDisplayLimit100()
-    {
-        setDisplayLimit(page100)
-        setPageNumber(1)
-    }
-
     return (
         <main>
             <section className="cryptocurrencies">
@@ -103,19 +78,19 @@ function Main()
                         <div className="dropbutton--container">
                             <button className="dropbutton" 
                                 id="rowbtn" 
-                                onClick={showDropdown}>{displayLimit} Rows</button>
+                                onClick={limitDropdown}>{displayLimit} Rows</button>
                             <div className="dropbutton--content" id="rowbtn--content">
                                 <div 
                                     className="dropbutton--content--row" 
-                                    onClick={changeDisplayLimit20}
+                                    onClick={displayLimit20}
                                 >20</div>
                                 <div 
                                     className="dropbutton--content--row"
-                                    onClick={changeDisplayLimit50}
+                                    onClick={displayLimit50}
                                 >50</div>
                                 <div 
                                     className="dropbutton--content--row"
-                                    onClick={changeDisplayLimit100}
+                                    onClick={displayLimit100}
                                 >100</div>
                             </div>
                         </div>

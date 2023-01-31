@@ -9,6 +9,16 @@ const URLS = {
     api: "http://localhost:8000/api/v1"
 }
 
+// API Endpoints
+const ENDPOINTS = {
+    cryptoCount: "/all/count/",
+    cryptosByPage: "/pages/",
+    registerUser: "/register/",
+    loginUser: "/login/",
+    cookies: "/cookies/"
+}
+
 export {
-    URLS
+    URLS,
+    ENDPOINTS
 }

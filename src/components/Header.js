@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { URLS } from "../utils/config"
+import { showLogin, showSignup, onLogOut } from "../utils/headerUtil"
 
 /**
  * @file Header.js
@@ -23,53 +23,10 @@ function Header(props)
         onSetCurrentUser
     } = props
 
-    const cookieUrl = `${URLS.api}/cookies/`
-
-    /**
-     * @brief The showLogin() function toggles the 'show' class on the login box
-     */
-    function showLogin()
-    {
-        document.getElementById("login-container").classList.add("show")
-        document.getElementById("login-page-mask").classList.add("show")
-        document.getElementById("login-box--header-container--login-header")
-            .classList.toggle("header--selected")
-
-        // Set loginForm state variable to true
-        onSetLoginForm(true)
-    }
-
-    /**
-     * @brief The showSignup() function toggles the 'show' class on the login box
-     */
-    function showSignup()
-    {
-        document.getElementById("login-container").classList.add("show")
-        document.getElementById("login-page-mask").classList.add("show")
-        document.getElementById("login-box--header-container--signup-header")
-            .classList.toggle("header--selected")
-
-        // Set loginForm state variable to false
-        onSetLoginForm(false)
-    }
-
-    /**
-     * @brief The onLogOut() function attempts to log out the current user.
-     */
-    function onLogOut()
-    {
-        fetch(cookieUrl, {
-            method: "GET",
-            credentials: "include"
-        })
-            .then((res) => res.json())
-            .then((res) => console.log(res))
-            .catch(console.error)
-
-        // Clear currentUser state variable and set loggedIn state variable to false
-        onSetCurrentUser()
-        onLoggedInChange(false)
-    }
+    // Component functions stored in headerUtil
+    const login = () => showLogin(onSetLoginForm)
+    const signup = () => showSignup(onSetLoginForm)
+    const logout = () => onLogOut(onLoggedInChange, onSetCurrentUser)
 
     return (
         <header>
@@ -99,14 +56,14 @@ function Header(props)
                         <button 
                             className="header--info-bar--button" 
                             id="login-button" 
-                            onClick={showLogin}
+                            onClick={login}
                         >
                             Login
                         </button>
                         <button 
                             className="header--info-bar--button"
                             id="signup-button"
-                            onClick={showSignup}
+                            onClick={signup}
                         >
                             Sign Up
                         </button>
@@ -117,7 +74,7 @@ function Header(props)
                             Welcome, {currentUser}
                         </div>
                         <button
-                            onClick={onLogOut}
+                            onClick={logout}
                         >
                             Log Out
                         </button>

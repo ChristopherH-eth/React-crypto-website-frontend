@@ -1,4 +1,5 @@
 import React from "react"
+import { addCommas, fixDecimals } from "../utils/utils";
 import { Link } from "react-router-dom";
 
 /**
@@ -7,30 +8,6 @@ import { Link } from "react-router-dom";
  * @brief This file is responsible for creating cryptocurrency modules for the 'top 100 cryptocurrencies'
  *      section using information acquired through the backend server/database.
  */
-
-/**
- * @brief The addCommas() function adds commas to a number using regular expressions.
- * @return Returns the number as a string with commas where necessary
- */
-function addCommas(x) 
-{
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-}
-
-/**
- * @brief The fixDecimals() function sets the number of decimals a number should be rounded to.
- * @param x The number to be rounded
- * @returns Returns the number rounded to 'y' decimal places
- */
-function fixDecimals(x)
-{
-    if (x > 2)
-        return x.toFixed(2)
-    else if (x > 0.00099)
-        return x.toFixed(4)
-    else
-        return x.toFixed(9)
-}
 
 /**
  * @brief The Cryptos() function creates cryptocurrency modules to be displayed in the Main module.
@@ -59,7 +36,7 @@ function Cryptos(props)
                         {logo ? <img className="cryptos--name--logo" src={`${logo}`} alt="logo" /> : ""}
                         <Link to={`/currencies/${id}/`} className="link">{name}</Link>&nbsp;{symbol}
                     </div>
-                    <div className="cryptos--price">${fixDecimals(quote.USD.price)}</div>
+                    <div className="cryptos--price">${addCommas(fixDecimals(quote.USD.price))}</div>
                     <div className="cryptos--change">
                         <div className={quote.USD.percent_change_1h >= 0 ? "green" : "red"}>
                             {quote.USD.percent_change_1h.toFixed(2)}%
