@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === "development")
 else
 {
     URLS = {
-        api: "http://100.25.157.35:8000/api/v1"
+        api: "http://52.54.32.6:8000/api/v1"
     }
 }
 
