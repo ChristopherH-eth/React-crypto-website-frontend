@@ -5,8 +5,19 @@
  */
 
 // Base URL and API versions
-const URLS = {
-    api: "http://localhost:8000/api/v1"
+let URLS = {}
+
+if (process.env.NODE_ENV === "development")
+{
+    URLS = {
+        api: "http://localhost:8000/api/v1"
+    }
+}
+else
+{
+    URLS = {
+        api: "http://100.25.157.35/:8000/api/v1"
+    }
 }
 
 // API Endpoints
