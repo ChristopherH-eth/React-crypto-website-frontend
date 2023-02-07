@@ -7,7 +7,7 @@
 /**
  * @brief The selectWindow() function closes menus and popups if the user clicks outside of it.
  */
-const selectWindow = window.onclick = function(event) 
+function selectWindow(event) 
 {
     // Dropdown menus
     if (!event.target.matches(".dropbutton")) 

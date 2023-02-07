@@ -1,6 +1,8 @@
 import React from "react"
 import { useParams } from "react-router-dom"
 import { URLS } from "../utils/config"
+import { addCommas, fixDecimals } from "../utils/utils"
+import { getLinks, getTags } from "../utils/currencyUtil"
 
 /**
  * @file Currency.js
@@ -29,12 +31,12 @@ function Currency()
         fetch(currencyMetadataUrl)
             .then((res) => res.json())
             .then((res) => setCurrencyMetadata(res[0]))
-            .catch(console.error)
-
-        fetch(currencyDataUrl)
-            .then((res) => res.json())
-            .then((res) => setCurrencyData(res))
-            .catch(console.error)
+            .then(() => {
+                fetch(currencyDataUrl)
+                    .then((res) => res.json())
+                    .then((res) => setCurrencyData(res))
+                    .catch(console.error)
+            })
     }, [currencyMetadataUrl, currencyDataUrl])
 
     // Used for testing
@@ -48,32 +50,49 @@ function Currency()
                     <div className="currency--data">
                         {/* Currency Basic Data */}
                         <div className="currency--data--basic">
-                            <div className="currency--data--basic--line">
+                            <div className="currency--data--basic--title">
                                 <img src={currencyMetadata.logo} 
                                     alt="currency logo" 
                                     className="currency--logo" 
                                 />
-                                <h1>{currencyMetadata.name}&nbsp;{currencyMetadata.symbol}</h1>
-                            </div>
-                            <div className="currency--data--basic--line">
-                                <div className="currency--data--basic--rank">
-                                    Rank {currencyData.cmc_rank}
+                                <div>{currencyMetadata.name}&nbsp;</div>
+                                <div className="currency--data--basic--symbol">
+                                    {currencyMetadata.symbol}
                                 </div>
-                                <div className="currency--data--basic--categoty">
+                            </div>
+                            <div className="currency--data--basic--left-line">
+                                <div className="currency--data--basic--rank">
+                                    Rank #{currencyData.cmc_rank}
+                                </div>
+                                <div className="currency--data--basic--category">
                                     {currencyMetadata.category}
                                 </div>
                             </div>
-                            <div className="currency--data--basic--line">**Links Go Here**</div>
-                            <div>Tags:</div>
-                            <div className="currency--data--basic--line">**Tag Links Go Here**</div>
+                            {getLinks(currencyMetadata)}
+                            <div className="currency--data--basic--left-line">Tags:</div>
+                            <div className="currency--data--basic--left-line">
+                                {getTags(currencyMetadata)}
+                                {currencyData.tags.length > 4 ? <div>View All</div> : <div></div>}
+                            </div>
                         </div>
                         {/* Currency Price Data */}
                         <div className="currency--data--price">
-                            <div>{currencyData.name} Price ({currencyData.symbol})</div>
-                            <div>{currencyData.quote.USD.price}</div>
+                            <div className="currency--data--basic--right-line">
+                                {currencyData.name} Price ({currencyData.symbol})
+                            </div>
+                            <div className="currency--data--basic--right-line">
+                                <div className="currency--data--price--value">
+                                    ${addCommas(fixDecimals(currencyData.quote.USD.price))}
+                                </div>
+                                <div className={currencyData.quote.USD.percent_change_24h 
+                                    >= 0 ? "currency--data--price--change greenbg" 
+                                    : "currency--data--price--change redbg"}>
+                                    {currencyData.quote.USD.percent_change_24h.toFixed(2)}%
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div>{currencyMetadata.id}</div>
+                    <div>{currencyMetadata.symbol} Data</div>
                     <div>{currencyMetadata.description}</div>
                 </div>
             ) : (

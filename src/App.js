@@ -31,6 +31,7 @@ function App()
     const countUrl = `${URLS.api}${ENDPOINTS.cryptoCount}`
 
     const location = useLocation()                                  // Current URL path
+    window.onclick = selectWindow                                   // Window event handler
 
     /**
      * @brief The getProps() function checks the current URL path name and returns relevant props.
@@ -61,14 +62,14 @@ function App()
         })
             .then((res) => res.json())
             .then((res) => setCryptoData(res))
-            .catch(console.error)
-        
-        fetch(countUrl, {
-            method: "GET"
+            .then(() => {
+                fetch(countUrl, {
+                    method: "GET"
+                })
+                    .then((res) => res.json())
+                    .then((res) => setCryptoCount(res))
+                    .catch(console.error)
         })
-            .then((res) => res.json())
-            .then((res) => setCryptoCount(res))
-            .catch(console.error)
 
         // Check for updates every 30 seconds
         const update = setInterval(() => {
@@ -77,14 +78,14 @@ function App()
             })
                 .then((res) => res.json())
                 .then((res) => setCryptoData(res))
-                .catch(console.error)
-            
-            fetch(countUrl, {
-                method: "GET"
-            })
-                .then((res) => res.json())
-                .then((res) => setCryptoCount(res))
-                .catch(console.error)
+                .then(() => {
+                    fetch(countUrl, {
+                        method: "GET"
+                    })
+                        .then((res) => res.json())
+                        .then((res) => setCryptoCount(res))
+                        .catch(console.error)
+                    })
         }, 30000)
 
         return () => clearInterval(update)
@@ -95,7 +96,6 @@ function App()
 
     return (
         <div className="app-container">
-            {selectWindow}
             <Header 
                 cryptoCount={cryptoCount}
                 loggedIn={loggedIn}
