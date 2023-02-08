@@ -459,6 +459,12 @@ main
 .currency--data
 {
     display: flex;
+}
+
+.currency--metrics
+{
+    display: flex;
+    margin-top: 2rem;
     border-bottom: 0.0625rem solid #323942;
 }
 
@@ -485,7 +491,8 @@ main
     font-weight: 400;
 }
 
-.currency--data--basic--right-line, .currency--data--basic--left-line
+.currency--data--basic--right-line, .currency--data--basic--left-line,
+.currency--data--price--left-line, .currency--data--price--right-line
 {
     display: flex;
     align-items: center;
@@ -493,13 +500,13 @@ main
     font-size: 0.75rem;
 }
 
-.currency--data--basic--left-line
+.currency--data--basic--left-line, .currency--data--price--left-line
 {
     margin-left: 0;
     margin-right: auto;
 }
 
-.currency--data--basic--right-line
+.currency--data--basic--right-line, .currency--data--price--right-line
 {
     margin-left: auto;
     margin-right: 0;
@@ -513,7 +520,8 @@ main
     border-radius: 0.3125rem;
 }
 
-.currency--data--basic--category, .currency--data--basic--symbol, .currency--data--basic--link
+.currency--data--basic--category, .currency--data--basic--symbol, 
+.currency--data--basic--link
 {
     background-color: #58626f;
     margin-right: 0.5rem;
@@ -557,6 +565,25 @@ main
 {
     padding: 0.3125rem;
     border-radius: 0.3125rem;
+}
+
+.currency--data--price--ratio
+{
+    font-size: 1rem;
+}
+
+.currency--description--title
+{
+    margin-top: 1.5rem;
+    padding: 0.3125rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.currency--description--body
+{
+    margin-top: 0.5rem;
+    padding: 0.3125rem;
 }
 
 /************************************************************

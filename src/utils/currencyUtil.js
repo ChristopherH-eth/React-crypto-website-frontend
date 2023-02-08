@@ -1,3 +1,5 @@
+import { fixDecimals } from "./utils"
+
 /**
  * @file currencyUtil.js
  * @author 0xChristopher
@@ -64,4 +66,26 @@ function getTags(currencyData)
     return displayTags
 }
 
-export { getLinks, getTags }
+/**
+ * @brief The BTCRatio() function computes the ratio of a given currency to BTC.
+ * @param currencyPrice Price of a given currency
+ * @param BTCPrice Price of BTC
+ * @returns Returns the currency : BTC ratio
+ */
+function BTCRatio(currencyPrice, BTCPrice)
+{
+    return fixDecimals(currencyPrice / BTCPrice)
+}
+
+/**
+ * @brief The ETHRatio() function computes the ratio of a given currency to ETH.
+ * @param currencyPrice Price of a given currency
+ * @param ETHPrice Price of ETH
+ * @returns Returns the currency : ETH ratio
+ */
+function ETHRatio(currencyPrice, ETHPrice)
+{
+    return fixDecimals(currencyPrice / ETHPrice)
+}
+
+export { getLinks, getTags, BTCRatio, ETHRatio }

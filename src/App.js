@@ -30,15 +30,16 @@ function App()
     const pageUrl = `${URLS.api}${ENDPOINTS.cryptosByPage}?page=${pageNumber}&limit=${displayLimit}`
     const countUrl = `${URLS.api}${ENDPOINTS.cryptoCount}`
 
-    const location = useLocation()                                  // Current URL path
     window.onclick = selectWindow                                   // Window event handler
 
     /**
-     * @brief The getProps() function checks the current URL path name and returns relevant props.
+     * @brief The useUrl() hook checks the current URL path name and returns relevant props.
      * @returns Returns props to pass to the child component
      */
-    function getProps()
-    {
+    const useUrl = () => {
+        // Current URL path
+        const location = useLocation()
+
         switch(location.pathname)
         {
             case "/":
@@ -104,7 +105,8 @@ function App()
                 currentUser={currentUser}
                 onSetCurrentUser={(user) => setCurrentUser(user)}
             />
-            <Outlet context={getProps()} />
+            {/* Gets props for main page component by URL */}
+            <Outlet context={useUrl()} />
             <Footer />
             {/* Login Page Mask (dimmed background) */}
             <div className="login-page-mask" id="login-page-mask" />

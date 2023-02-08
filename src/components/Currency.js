@@ -1,13 +1,17 @@
 import React from "react"
-import { useParams } from "react-router-dom"
-import { URLS } from "../utils/config"
+import { useSearchParams } from "react-router-dom"
+import { URLS, ENDPOINTS } from "../utils/config"
 import { addCommas, fixDecimals } from "../utils/utils"
-import { getLinks, getTags } from "../utils/currencyUtil"
+import { getLinks, getTags, BTCRatio, ETHRatio } from "../utils/currencyUtil"
 
 /**
  * @file Currency.js
  * @author 0xChristopher
- * @brief This file is responsible for the Currency module of the cryptocurrency website.
+ * @brief This file is responsible for the Currency module of the cryptocurrency website. It fetchs all
+ *      cryptocurrency documents from the database to pull our the current currency, BTC, and ETH data to
+ *      process on the page.
+ * @dev It may be faster to fetch the currency, BTC, and ETH data in separate fetches should the database
+ *      become too large.
  */
 
 /**
@@ -16,32 +20,31 @@ import { getLinks, getTags } from "../utils/currencyUtil"
  */
 function Currency()
 {
-    const {
-        currency                                                            // Currency id from URL
-    } = useParams()
+    const [params] = useSearchParams()                                          // URL search parameters
+    const currency = params.get("currency")                                     // Currency parameter from URL
 
-    const [currencyMetadata, setCurrencyMetadata] = React.useState([])      // Current currency metadata
-    const [currencyData, setCurrencyData] = React.useState()                // Current currency data
+    const [cryptoData, setCryptoData] = React.useState([])                      // Array of crypto objects
+    const [currencyMetadata, setCurrencyMetadata] = React.useState()            // Current currency metadata
 
-    const currencyMetadataUrl = `${URLS.api}/metadata/?cryptos=${currency}`
-    const currencyDataUrl = `${URLS.api}/cryptocurrencies/?cryptoId=${currency}`
+    const currencyData = cryptoData.find((x) => (x.id === parseInt(currency)))  // Current currency data
+    const BTCPrice = cryptoData.find((x) => (x.symbol === "BTC"))               // Current BTC quote in USD
+    const ETHPrice = cryptoData.find((x) => (x.symbol === "ETH"))               // Current ETH quote in USD
 
-    // Get currency data from server
+    const currencyMetadataUrl = `${URLS.api}${ENDPOINTS.metadataById}?cryptos=${currency}`
+    const cryptoUrl = `${URLS.api}${ENDPOINTS.allCryptos}`
+
+    // Get cryptocurrency data and metadata from server
     React.useEffect(() => {
-        fetch(currencyMetadataUrl)
+        fetch(cryptoUrl)
             .then((res) => res.json())
-            .then((res) => setCurrencyMetadata(res[0]))
+            .then((res) => setCryptoData(res))
             .then(() => {
-                fetch(currencyDataUrl)
+                fetch(currencyMetadataUrl)
                     .then((res) => res.json())
-                    .then((res) => setCurrencyData(res))
-                    .catch(console.error)
-            })
-    }, [currencyMetadataUrl, currencyDataUrl])
-
-    // Used for testing
-    console.log(currencyMetadata)
-    console.log(currencyData)
+                    .then((res) => setCurrencyMetadata(res[0]))
+                })
+            .catch(console.error)
+    }, [cryptoUrl, currencyMetadataUrl])
 
     return (
         <main className="currency">
@@ -55,7 +58,9 @@ function Currency()
                                     alt="currency logo" 
                                     className="currency--logo" 
                                 />
-                                <div>{currencyMetadata.name}&nbsp;</div>
+                                <div>
+                                    {currencyMetadata.name}&nbsp;
+                                </div>
                                 <div className="currency--data--basic--symbol">
                                     {currencyMetadata.symbol}
                                 </div>
@@ -69,7 +74,9 @@ function Currency()
                                 </div>
                             </div>
                             {getLinks(currencyMetadata)}
-                            <div className="currency--data--basic--left-line">Tags:</div>
+                            <div className="currency--data--basic--left-line">
+                                Tags:
+                            </div>
                             <div className="currency--data--basic--left-line">
                                 {getTags(currencyMetadata)}
                                 {currencyData.tags.length > 4 ? <div>View All</div> : <div></div>}
@@ -77,10 +84,10 @@ function Currency()
                         </div>
                         {/* Currency Price Data */}
                         <div className="currency--data--price">
-                            <div className="currency--data--basic--right-line">
+                            <div className="currency--data--price--right-line">
                                 {currencyData.name} Price ({currencyData.symbol})
                             </div>
-                            <div className="currency--data--basic--right-line">
+                            <div className="currency--data--price--right-line">
                                 <div className="currency--data--price--value">
                                     ${addCommas(fixDecimals(currencyData.quote.USD.price))}
                                 </div>
@@ -90,10 +97,35 @@ function Currency()
                                     {currencyData.quote.USD.percent_change_24h.toFixed(2)}%
                                 </div>
                             </div>
+                            {currencyData.symbol !== "BTC" ? 
+                            <div className="currency--data--price--right-line">
+                                <div className="currency--data--price--ratio">
+                                    {BTCRatio(currencyData.quote.USD.price, BTCPrice.quote.USD.price)} BTC
+                                </div>
+                            </div>
+                            :
+                            ""}
+                            {currencyData.symbol !== "ETH" ? 
+                            <div className="currency--data--price--right-line">
+                                <div className="currency--data--price--ratio">
+                                    {ETHRatio(currencyData.quote.USD.price, ETHPrice.quote.USD.price)} ETH
+                                </div>
+                            </div>
+                            :
+                            ""}
                         </div>
                     </div>
-                    <div>{currencyMetadata.symbol} Data</div>
-                    <div>{currencyMetadata.description}</div>
+                    <div className="currency--metrics">
+                        Placeholder for currency metrics
+                    </div>
+                    <div className="currency--description">
+                        <div className="currency--description--title">
+                            {currencyMetadata.symbol} Data
+                        </div>
+                        <div className="currency--description--body">
+                            {currencyMetadata.description}
+                        </div>
+                    </div>
                 </div>
             ) : (
                 <div className="currency--container">Loading...</div>

@@ -22,8 +22,11 @@ else
 
 // API Endpoints
 const ENDPOINTS = {
+    allCryptos: "/all/",
     cryptoCount: "/all/count/",
     cryptosByPage: "/pages/",
+    metadataById: "/metadata/",
+    cryptoById: "/cryptocurrencies/",
     registerUser: "/register/",
     loginUser: "/login/",
     cookies: "/cookies/"

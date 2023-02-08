@@ -34,7 +34,7 @@ function Cryptos(props)
                     <div className="cryptos--rank">{index}</div>
                     <div className="cryptos--name">
                         {logo ? <img className="cryptos--name--logo" src={`${logo}`} alt="logo" /> : ""}
-                        <Link to={`/currencies/${id}/`} className="link">{name}</Link>&nbsp;{symbol}
+                        <Link to={`/currencies/?currency=${id}`} className="link">{name}</Link>&nbsp;{symbol}
                     </div>
                     <div className="cryptos--price">${addCommas(fixDecimals(quote.USD.price))}</div>
                     <div className="cryptos--change">
@@ -58,7 +58,7 @@ function Cryptos(props)
                         {symbol}</div>
                 </section>
             ) : (
-                <div>Loading...</div>
+                <section className="cryptos">Loading...</section>
             )}
         </div>
     )
