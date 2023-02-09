@@ -50,74 +50,174 @@ function Currency()
         <main className="currency">
             {currencyMetadata && currencyData ? (
                 <div className="currency--container">
-                    <div className="currency--data">
-                        {/* Currency Basic Data */}
-                        <div className="currency--data--basic">
-                            <div className="currency--data--basic--title">
-                                <img src={currencyMetadata.logo} 
-                                    alt="currency logo" 
-                                    className="currency--logo" 
-                                />
-                                <div>
-                                    {currencyMetadata.name}&nbsp;
+                    {/* Currency Data */}
+                    <div className="currency--data--container">
+                        <div className="currency--data">
+                            {/* Currency Basic Data */}
+                            <div className="currency--data--basic">
+                                <div className="currency--data--basic--title">
+                                    <img src={currencyMetadata.logo} 
+                                        alt="currency logo" 
+                                        className="currency--logo" 
+                                    />
+                                    <div>
+                                        {currencyMetadata.name}&nbsp;
+                                    </div>
+                                    <div className="currency--data--basic--symbol">
+                                        {currencyMetadata.symbol}
+                                    </div>
                                 </div>
-                                <div className="currency--data--basic--symbol">
-                                    {currencyMetadata.symbol}
+                                <div className="currency--data--basic--left-line">
+                                    <div className="currency--data--basic--rank">
+                                        Rank #{currencyData.cmc_rank}
+                                    </div>
+                                    <div className="currency--data--basic--category">
+                                        {currencyMetadata.category}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="currency--data--basic--left-line">
-                                <div className="currency--data--basic--rank">
-                                    Rank #{currencyData.cmc_rank}
+                                {getLinks(currencyMetadata)}
+                                <div className="currency--data--basic--left-line">
+                                    Tags:
                                 </div>
-                                <div className="currency--data--basic--category">
-                                    {currencyMetadata.category}
-                                </div>
-                            </div>
-                            {getLinks(currencyMetadata)}
-                            <div className="currency--data--basic--left-line">
-                                Tags:
-                            </div>
-                            <div className="currency--data--basic--left-line">
-                                {getTags(currencyMetadata)}
-                                {currencyData.tags.length > 4 ? <div>View All</div> : <div></div>}
-                            </div>
-                        </div>
-                        {/* Currency Price Data */}
-                        <div className="currency--data--price">
-                            <div className="currency--data--price--right-line">
-                                {currencyData.name} Price ({currencyData.symbol})
-                            </div>
-                            <div className="currency--data--price--right-line">
-                                <div className="currency--data--price--value">
-                                    ${addCommas(fixDecimals(currencyData.quote.USD.price))}
-                                </div>
-                                <div className={currencyData.quote.USD.percent_change_24h 
-                                    >= 0 ? "currency--data--price--change greenbg" 
-                                    : "currency--data--price--change redbg"}>
-                                    {currencyData.quote.USD.percent_change_24h.toFixed(2)}%
+                                <div className="currency--data--basic--left-line">
+                                    {getTags(currencyMetadata)}
+                                    {currencyData.tags.length > 4 ? <div>View All</div> : <div></div>}
                                 </div>
                             </div>
-                            {currencyData.symbol !== "BTC" ? 
-                            <div className="currency--data--price--right-line">
-                                <div className="currency--data--price--ratio">
+                            {/* Currency Price Data */}
+                            <div className="currency--data--price">
+                                <div className="currency--data--price--right-line">
+                                    {currencyData.name} Price ({currencyData.symbol})
+                                </div>
+                                <div className="currency--data--price--right-line">
+                                    <div className="currency--data--price--value">
+                                        ${addCommas(fixDecimals(currencyData.quote.USD.price))}
+                                    </div>
+                                    <div className={currencyData.quote.USD.percent_change_24h 
+                                        >= 0 ? "currency--data--price--change greenbg" 
+                                        : "currency--data--price--change redbg"}>
+                                        {currencyData.quote.USD.percent_change_24h.toFixed(2)}%
+                                    </div>
+                                </div>
+                                {currencyData.symbol !== "BTC" ? 
+                                <div className="currency--data--price--right-line currency--data--price--ratio">
                                     {BTCRatio(currencyData.quote.USD.price, BTCPrice.quote.USD.price)} BTC
                                 </div>
-                            </div>
-                            :
-                            ""}
-                            {currencyData.symbol !== "ETH" ? 
-                            <div className="currency--data--price--right-line">
-                                <div className="currency--data--price--ratio">
+                                :
+                                ""}
+                                {currencyData.symbol !== "ETH" ? 
+                                <div className="currency--data--price--right-line currency--data--price--ratio">
                                     {ETHRatio(currencyData.quote.USD.price, ETHPrice.quote.USD.price)} ETH
                                 </div>
+                                :
+                                ""}
                             </div>
-                            :
-                            ""}
                         </div>
+                        {/* Currency Metrics */}
+                        <div className="currency--metrics--container">
+                            <div className="currency--metrics">
+                                <div className="currency--metrics--data">
+                                    <div className="currency--metrics--data--outer-container">
+                                        <div className="currency--metrics--data--text">
+                                            Market Cap
+                                        </div>
+                                        <div className="currency--metrics--data--number">
+                                            ${addCommas(fixDecimals(currencyData.quote.USD.market_cap))}
+                                        </div>
+                                        <div className={currencyData.quote.USD.percent_change_24h 
+                                            >= 0 ? "green currency--metrics--data--number" 
+                                            : "red currency--metrics--data--number"}
+                                        >
+                                            {currencyData.quote.USD.percent_change_24h.toFixed(2)}%
+                                        </div>
+                                    </div>
+                                    <div className="currency--metrics--data--outer-container">
+                                        <div className="currency--metrics--data--inner-container">
+                                            <div className="currency--metrics--data--text-inline">
+                                                24h Volume / Market Cap
+                                            </div>
+                                            <div className="currency--metrics--data--number-inline">
+                                                {fixDecimals(currencyData.quote.USD.volume_24h 
+                                                / currencyData.quote.USD.market_cap)}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="currency--metrics--data--border" />
+                                <div className="currency--metrics--data">
+                                    <div className="currency--metrics--data--outer-container">
+                                        <div className="currency--metrics--data--text">
+                                            Fully Dilluted Market Cap
+                                        </div>
+                                        <div className="currency--metrics--data--number">
+                                            ${addCommas(fixDecimals(
+                                                currencyData.quote.USD.fully_diluted_market_cap
+                                            ))}
+                                        </div>
+                                        <div className={currencyData.quote.USD.percent_change_24h 
+                                            >= 0 ? "green currency--metrics--data--number" 
+                                            : "red currency--metrics--data--number"}
+                                        >
+                                            {currencyData.quote.USD.percent_change_24h.toFixed(2)}%
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="currency--metrics--data--border" />
+                                <div className="currency--metrics--data">
+                                    <div className="currency--metrics--data--outer-container">
+                                        <div className="currency--metrics--data--text">
+                                            Volume 24h
+                                        </div>
+                                        <div className="currency--metrics--data--number">
+                                            ${addCommas(fixDecimals(currencyData.quote.USD.volume_24h))}
+                                        </div>
+                                        <div className={currencyData.quote.USD.volume_change_24h 
+                                            >= 0 ? "green currency--metrics--data--number" 
+                                            : "red currency--metrics--data--number"}
+                                        >
+                                            {currencyData.quote.USD.volume_change_24h.toFixed(2)}%
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="currency--metrics--data--border" />
+                                <div className="currency--metrics--data">
+                                    <div className="currency--metrics--data--outer-container">
+                                        <div className="currency--metrics--data--text">
+                                            Circulating Supply
+                                        </div>
+                                        <div className="currency--metrics--data--number">
+                                            {`${addCommas(currencyData.circulating_supply.toFixed())} `}
+                                            {currencyData.symbol}
+                                        </div>
+                                        <div className="currency--metrics--data--number">
+                                            {/* Placeholder space for circulatin supply bar */}
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                    <div className="currency--metrics--data--outer-container">
+                                        <div className="currency--metrics--data--inner-container">
+                                            <div className="currency--metrics--data--text-inline">
+                                                Max Supply
+                                            </div>
+                                            <div className="currency--metrics--data--number-inline">
+                                                {addCommas(currencyData.max_supply.toFixed())}
+                                            </div>
+                                        </div>
+                                        <div className="currency--metrics--data--inner-container">
+                                            <div className="currency--metrics--data--text-inline">
+                                                Total Supply
+                                            </div>
+                                            <div className="currency--metrics--data--number-inline">
+                                                {addCommas(currencyData.total_supply.toFixed())}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="currency--metrics--border" />
                     </div>
-                    <div className="currency--metrics">
-                        Placeholder for currency metrics
-                    </div>
+                    {/* Currency Description */}
                     <div className="currency--description">
                         <div className="currency--description--title">
                             {currencyMetadata.symbol} Data

@@ -15,7 +15,8 @@
  * 7. Currency Module
  * 8. Pagination Module
  * 9. Footer Module
- * 10. Toggle and Pseudo Class Styles
+ * 10. Scrollbar
+ * 11. Toggle and Pseudo Class Styles
  */
 
 /************************************************************
@@ -229,7 +230,7 @@ header
 
 .header--navigation--text
 {
-    padding: 0.625rem;
+    padding: 0.9375rem;
     margin-left: 0rem;
     margin-right: 2.5rem;
 }
@@ -456,16 +457,15 @@ main
     margin-right: 0.3125rem;
 }
 
+.currency--data--container
+{
+    background-image: linear-gradient(180deg, #282D35 0%, #21222A 100%);
+}
+
 .currency--data
 {
     display: flex;
-}
-
-.currency--metrics
-{
-    display: flex;
-    margin-top: 2rem;
-    border-bottom: 0.0625rem solid #323942;
+    padding: 0.9375rem;
 }
 
 .currency--data--basic
@@ -476,7 +476,6 @@ main
     justify-content: center;
     margin-left: 0;
     margin-right: auto;
-    padding: 0.625rem;
 }
 
 .currency--data--basic--title
@@ -549,7 +548,6 @@ main
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0.625rem;
 }
 
 .currency--data--price--value
@@ -572,10 +570,86 @@ main
     font-size: 1rem;
 }
 
+.currency--metrics--container
+{
+    padding: 0.9375rem;
+}
+
+.currency--metrics
+{
+    display: flex;
+    margin-top: 2rem;
+    border-top: 0.0625rem solid #323942;
+    font-size: 0.75rem;
+}
+
+.currency--metrics--data
+{
+    margin-top: 1.25rem;
+    margin-left: 0;
+    margin-right: auto;
+    width: 25%;
+}
+
+.currency--metrics--data--outer-container
+{
+    margin-top: 1.5rem;
+}
+
+.currency--metrics--data--inner-container
+{
+    display: flex;
+}
+
+.currency--metrics--data--text
+{
+    color: #788697;
+}
+
+.currency--metrics--data--text-inline
+{
+    margin-top: 0.5rem;
+    color: #788697;
+}
+
+.currency--metrics--data--number
+{
+    margin-top: 0.5rem;
+    font-weight: 700;
+    color: #DEEBE8;
+}
+
+.currency--metrics--data--number-inline
+{
+    margin-top: 0.5rem;
+    margin-left: auto;
+    margin-right: 0;
+    font-weight: 700;
+    color: #DEEBE8;
+}
+
+.currency--metrics--border
+{
+    margin-top: 2rem;
+    border-bottom: 0.0625rem solid #323942;
+}
+
+.currency--metrics--data--border
+{
+    margin-top: 1.5rem;
+    margin-right: 0.625rem;
+    margin-left: 0.625rem;
+    border-right: 0.0625rem solid #323942;
+}
+
+.currency--description
+{
+    padding: 0.9375rem;
+}
+
 .currency--description--title
 {
     margin-top: 1.5rem;
-    padding: 0.3125rem;
     font-weight: 700;
     font-size: 1.5rem;
 }
@@ -583,7 +657,6 @@ main
 .currency--description--body
 {
     margin-top: 0.5rem;
-    padding: 0.3125rem;
 }
 
 /************************************************************
@@ -629,7 +702,31 @@ footer
 }
 
 /************************************************************
- * 10. Toggle and Pseudo Class Styles
+ * 10. Scrollbar
+ *
+ *
+ ************************************************************/
+
+::-webkit-scrollbar 
+{
+    width: 10px;
+}
+
+::-webkit-scrollbar-track 
+{
+    background: #21222A;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #323942;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #282D35;
+}
+
+/************************************************************
+ * 11. Toggle and Pseudo Class Styles
  *
  *
  ************************************************************/
