@@ -55,12 +55,16 @@ function getTags(currencyData)
 {
     let displayTags = []
 
-    // Get at most the first four tags
-    for (var i = 0; i < 4 && i < currencyData.tags.length; i++)
+    // Check if tags exist
+    if (currencyData.tags !== null)
     {
-        displayTags.push(<div key={i} className="currency--data--basic--tag">
-            {currencyData.tags[i]}
-        </div>)
+        // Get at most the first four tags
+        for (var i = 0; i < 4 && i < currencyData.tags.length; i++)
+        {
+            displayTags.push(<div key={i} className="currency--data--basic--tag">
+                {currencyData.tags[i]}
+            </div>)
+        }
     }
 
     return displayTags

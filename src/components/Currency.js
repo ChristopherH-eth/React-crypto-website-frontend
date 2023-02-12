@@ -199,17 +199,31 @@ function Currency()
                                             <div className="currency--metrics--data--text-inline">
                                                 Max Supply
                                             </div>
-                                            <div className="currency--metrics--data--number-inline">
-                                                {addCommas(currencyData.max_supply.toFixed())}
-                                            </div>
+                                            {/* Check for null max supply */}
+                                            {currencyData.max_supply !== null ?
+                                                <div className="currency--metrics--data--number-inline">
+                                                    {addCommas(currencyData.max_supply.toFixed())}
+                                                </div>
+                                            :
+                                                <div className="currency--metrics--data--number-inline">
+                                                    --
+                                                </div>
+                                            }
                                         </div>
                                         <div className="currency--metrics--data--inner-container">
                                             <div className="currency--metrics--data--text-inline">
                                                 Total Supply
                                             </div>
-                                            <div className="currency--metrics--data--number-inline">
-                                                {addCommas(currencyData.total_supply.toFixed())}
-                                            </div>
+                                            {/* Check for null total supply */}
+                                            {currencyData.total_supply !== null ?
+                                                <div className="currency--metrics--data--number-inline">
+                                                    {addCommas(currencyData.total_supply.toFixed())}
+                                                </div>
+                                            :
+                                                <div className="currency--metrics--data--number-inline">
+                                                    --
+                                                </div>
+                                            }
                                         </div>
                                     </div>
                                 </div>

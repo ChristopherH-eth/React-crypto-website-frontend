@@ -13,6 +13,7 @@ const cookieUrl = `${URLS.api}${ENDPOINTS.cookies}`                     // API C
  */
 function showLogin(onSetLoginForm)
 {
+    document.body.classList.add("lock-scroll")
     document.getElementById("login-container").classList.add("show")
     document.getElementById("login-page-mask").classList.add("show")
     document.getElementById("login-box--header-container--login-header")
@@ -27,6 +28,7 @@ function showLogin(onSetLoginForm)
  */
 function showSignup(onSetLoginForm)
 {
+    document.body.classList.add("lock-scroll")
     document.getElementById("login-container").classList.add("show")
     document.getElementById("login-page-mask").classList.add("show")
     document.getElementById("login-box--header-container--signup-header")

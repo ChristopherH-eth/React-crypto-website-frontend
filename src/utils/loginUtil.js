@@ -87,6 +87,9 @@ function onLogin(onLoggedInChange, onSetCurrentUser, setLoginError)
                     if (openLoginBox.classList.contains("show"))
                         openLoginBox.classList.remove("show")
                 }
+
+                // Make page scrollable
+                document.body.classList.remove("lock-scroll")
             }
         })
         .then(() => {
@@ -102,6 +105,7 @@ function onLogin(onLoggedInChange, onSetCurrentUser, setLoginError)
  */
 function switchToLogin(onSetLoginForm)
 {
+    document.body.classList.add("lock-scroll")
     document.getElementById("login-box--header-container--login-header")
         .classList.add("header--selected")
     document.getElementById("login-box--header-container--signup-header")
@@ -116,6 +120,7 @@ function switchToLogin(onSetLoginForm)
  */
 function switchToSignup(onSetLoginForm)
 {
+    document.body.classList.add("lock-scroll")
     document.getElementById("login-box--header-container--signup-header")
         .classList.add("header--selected")
     document.getElementById("login-box--header-container--login-header")

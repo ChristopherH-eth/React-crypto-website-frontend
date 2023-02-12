@@ -57,6 +57,9 @@ function selectWindow(event)
         // Clear input fields if they still contain text
         document.getElementById("login-box--email-address--input").value = ""
         document.getElementById("login-box--password--input").value = ""
+
+        // Make body scrollable
+        document.body.classList.remove("lock-scroll")
     }
 }
 
