@@ -1,9 +1,10 @@
 import React from "react"
 import { 
     onLogin, 
+    onSignup,
     switchToLogin, 
     switchToSignup, 
-    formLogin 
+    formLoginOrSignup 
 } from "../utils/loginUtil"
 
 /**
@@ -29,6 +30,7 @@ function Login(props)
 
     // Component functions stored in loginUtil
     const login = () => onLogin(onLoggedInChange, onSetCurrentUser, setLoginError)
+    const signup = () => onSignup(setLoginError)
     const toLogin = () => switchToLogin(onSetLoginForm)
     const toSignup = () => switchToSignup(onSetLoginForm)
 
@@ -50,7 +52,7 @@ function Login(props)
                 {/* Login/Signup form */}
                 {/* Show login form if loginForm is true, otherwise show signup form */}
                 {loginForm === true ?
-                    <form className="login-box--login-form" onSubmit={(e) => formLogin(e)}>
+                    <form className="login-box--login-form" onSubmit={(e) => formLoginOrSignup(e)}>
                         <div className="login-box--input-container">
                             <div className="login-box--email-address">Email Address</div>
                             <input 
@@ -75,14 +77,30 @@ function Login(props)
                         >Log In</button>
                     </form>
                 :
-                    <form className="login-box--signup-form">
+                    <form className="login-box--signup-form" onSubmit={(e) => formLoginOrSignup(e)}>
                         <div className="login-box--input-container">
+                            <div className="login-box--first-name">First Name</div>
+                            <input
+                                type="text"
+                                className="login-box--first-name--input"
+                                id="login-box--first-name--input"
+                                placeholder="First Name"
+                                required
+                            ></input>
+                            <div className="login-box--last-name">Last Name</div>
+                            <input
+                                type="text"
+                                className="login-box--last-name--input"
+                                id="login-box--last-name--input"
+                                placeholder="Last Name"
+                                required
+                            ></input>
                             <div className="login-box--email-address">Email Address</div>
                             <input 
                                 type="text"
                                 className="login-box--email-address--input" 
                                 id="login-box--email-address--input"
-                                placeholder="Enter your email address..."
+                                placeholder="Email Address"
                                 required
                             ></input>
                             <div className="login-box--password">Password</div>
@@ -90,13 +108,13 @@ function Login(props)
                                 type="password"
                                 className="login-box--password--input" 
                                 id="login-box--password--input"
-                                placeholder="Enter your password..."
+                                placeholder="Password"
                                 required
                             ></input>
                         </div>
                         <button 
-                            type="submit" 
                             className="login-box--login-button" 
+                            onClick={signup}
                         >Sign Up</button>
                     </form>
                 }

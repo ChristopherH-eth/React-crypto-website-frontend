@@ -120,27 +120,15 @@ html, body
     padding: 1rem;
 }
 
-.login-box--email-address
+.login-box--email-address, .login-box--password, .login-box--first-name,
+.login-box--last-name
 {
     margin-bottom: 0.5rem;
     font-size: 0.75rem;
 }
 
-.login-box--email-address--input
-{
-    margin-bottom: 1rem;
-    padding: 0.625rem;
-    border-radius: 0.3125rem;
-    border: none;
-}
-
-.login-box--password
-{
-    margin-bottom: 0.5rem;
-    font-size: 0.75rem;
-}
-
-.login-box--password--input
+.login-box--email-address--input, .login-box--password--input,
+.login-box--first-name--input, .login-box--last-name--input
 {
     margin-bottom: 1rem;
     padding: 0.625rem;
